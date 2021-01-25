@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-void telaMenu(void);
+void telaSobre(void);
 
 int main(void) {
-    telaMenu();
+    telaSobre();
     return 0;
 
 }
 
 
-void telaMenu(void) {
+void telaSobre(void) {
     printf("\n");
     printf("*****************************************************************************\n");
     printf("**      Projeto Caderno Virtual de Receitas Culinarias                     **\n");
