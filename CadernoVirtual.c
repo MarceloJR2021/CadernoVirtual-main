@@ -13,6 +13,7 @@ int main(void) {
     menuPrincipal();
     menuReceitas();
     menuFinancas();
+	menuEstoque();
     return 0;
 
 }
@@ -75,7 +76,7 @@ void menuReceitas(void) {
 	printf("**           2. Encontrar Receitas                                       **\n");
 	printf("**           3. Atualizar Receitas                                       **\n");
     printf("**           4. Deletar receitas                                         **\n");
-	printf("**           5. Ver Receitas-Somente nome                                **\n");
+	printf("**           5. Ver Receitas                                             **\n");
 	printf("**           0. Sair                                                     **\n");
 	printf("**                                                                       **\n");
 	printf("**           Escolha a opcao desejada:                                   **\n");
@@ -86,6 +87,27 @@ void menuReceitas(void) {
 	getchar();
 }
 
+void menuEstoque(void) {
+    system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("**                                                                       **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**           ---------------  Menu Estoque   ---------------             **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**                                                                       **\n");
+	printf("**           1. Adicionar Estoque                                        **\n");
+	printf("**           2. Remover Estoque                                          **\n");
+	printf("**           3. Ver Estoque                                              **\n");
+	printf("**           0. Sair                                                     **\n");
+	printf("**                                                                       **\n");
+	printf("**           Escolha a opcao desejada:                                   **\n");
+	printf("**                                                                       **\n");
+	printf("*************************************************************************//\n");
+	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+}
 void menuFinancas(void) {
     system("cls");
 	printf("\n");
@@ -97,8 +119,7 @@ void menuFinancas(void) {
 	printf("**                                                                       **\n");
 	printf("**           1. Adicionar Financas                                       **\n");
 	printf("**           2. Remover   Financas                                       **\n");
-	printf("**           3. Atualizar Financas                                       **\n");
-    printf("**           4. Ver Financas                                             **\n");
+    printf("**           3. Ver Financas                                             **\n");
 	printf("**           0. Sair                                                     **\n");
 	printf("**                                                                       **\n");
 	printf("**           Escolha a opcao desejada:                                   **\n");
