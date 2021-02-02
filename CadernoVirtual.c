@@ -20,23 +20,92 @@ void telaSobre(void);
 void menuInformacoes(void);
 
 int main(void) {
+	int opcao;
+
     telaSobre();
     menuPrincipal();
-    menuReceitas();
-    menuFinancas();
-	menuEstoque();
-	menuInformacoes();
-	CadastrarReceitas();
-	deletarReceitas();
-	encontrarReceitas();
-	atualizarReceitas();
-	verReceitas();
-	adicionarEstoque();
-	removerEstoque();
-	verEstoque();
-	adicionarFinancas();
-	removerFinancas();
-	verFinancas();
+	scanf("%d", &opcao);
+
+	switch (opcao)
+	{
+		case 1 :
+		menuReceitas();
+		scanf("%d", &opcao);
+		switch (opcao) 
+		{
+			case 1 :
+			CadastrarReceitas();
+			break;
+
+			case 2 :
+			encontrarReceitas();
+			break; 
+
+			case 3 :
+			atualizarReceitas();
+			break;
+
+			case 4 :
+			deletarReceitas();
+			break;
+
+			case 5 :
+			verReceitas();
+			break;
+		}
+
+		break;
+
+		case 2 :
+		menuEstoque();
+		scanf("%d", &opcao);
+		switch (opcao) 
+		{
+			case 1 :
+			adicionarEstoque();
+			break;
+
+			case 2 :
+			removerEstoque();
+			break; 
+
+			case 3 :
+			verEstoque();
+			break;
+		}
+		break;
+
+		case 3 :
+		menuFinancas();
+		scanf("%d", &opcao);
+		switch (opcao) 
+		{
+			case 1 :
+			adicionarFinancas();
+			break;
+
+			case 2 :
+			removerFinancas();
+			break; 
+
+			case 3 :
+			verFinancas();
+			break;
+		}
+		break;
+		break;
+
+		case 4 :
+		menuInformacoes();
+		break;
+
+		case 5 :
+		return 0;
+
+
+	}
+    	
+
     return 0;
 
 }
@@ -75,15 +144,13 @@ void menuPrincipal(void) {
 	printf("**           2. Modo Estoque                                             **\n");
 	printf("**           3. Modo Financas                                            **\n");
     printf("**           4. Informacoes sobre o sistema                              **\n");
-	printf("**           0. Encerra o programa                                       **\n");
+	printf("**           5. Encerra o programa                                       **\n");
 	printf("**                                                                       **\n");
 	printf("**           Escolha a opcao desejada:                                   **\n");
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
 }
 
 void menuReceitas(void) {
