@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menuPrincipal(void);
-void menuReceitas(void);
-void menuEstoque(void);
-void menuFinancas(void);
+char menuPrincipal(void);
+char menuReceitas(void);
+char menuEstoque(void);
+char menuFinancas(void);
 void CadastrarReceitas(void);
 void deletarReceitas(void);
 void encontrarReceitas(void);
@@ -20,90 +20,28 @@ void telaSobre(void);
 void menuInformacoes(void);
 
 int main(void) {
-	int opcao;
+	char opcao;
 
-    telaSobre();
-    menuPrincipal();
-	scanf("%d", &opcao);
-
-	switch (opcao)
-	{
-		case 1 :
-		menuReceitas();
-		scanf("%d", &opcao);
-		switch (opcao) 
-		{
-			case 1 :
-			CadastrarReceitas();
-			break;
-
-			case 2 :
-			encontrarReceitas();
-			break; 
-
-			case 3 :
-			atualizarReceitas();
-			break;
-
-			case 4 :
-			deletarReceitas();
-			break;
-
-			case 5 :
-			verReceitas();
-			break;
-		}
-
-		break;
-
-		case 2 :
-		menuEstoque();
-		scanf("%d", &opcao);
-		switch (opcao) 
-		{
-			case 1 :
-			adicionarEstoque();
-			break;
-
-			case 2 :
-			removerEstoque();
-			break; 
-
-			case 3 :
-			verEstoque();
-			break;
-		}
-		break;
-
-		case 3 :
-		menuFinancas();
-		scanf("%d", &opcao);
-		switch (opcao) 
-		{
-			case 1 :
-			adicionarFinancas();
-			break;
-
-			case 2 :
-			removerFinancas();
-			break; 
-
-			case 3 :
-			verFinancas();
-			break;
-		}
-		break;
-		break;
-
-		case 4 :
-		menuInformacoes();
-		break;
-
-		case 5 :
-		return 0;
+	telaSobre();
+    opcao = menuPrincipal();
+	opcao = menuReceitas();
+	opcao = menuEstoque();
+	opcao = menuFinancas();
+	CadastrarReceitas();
+	deletarReceitas();
+	encontrarReceitas();
+	atualizarReceitas();
+	verReceitas();
+	adicionarEstoque();
+	removerEstoque();
+	verEstoque();
+	adicionarFinancas();
+	removerFinancas();
+	verFinancas();
+	menuInformacoes();
 
 
-	}
+	
     	
 
     return 0;
@@ -129,9 +67,12 @@ void telaSobre(void) {
     printf("**                                                                         **\n");
     printf("*****************************************************************************\n");
     printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
 }
 
-void menuPrincipal(void) {
+char menuPrincipal(void) {
+	char op;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -146,14 +87,20 @@ void menuPrincipal(void) {
     printf("**           4. Informacoes sobre o sistema                              **\n");
 	printf("**           5. Encerra o programa                                       **\n");
 	printf("**                                                                       **\n");
-	printf("**           Escolha a opcao desejada:                                   **\n");
+	printf("             Escolha a opcao desejada:  ");
+	scanf("%c", &op);
+	getchar();
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+	return op;
 }
 
-void menuReceitas(void) {
+char menuReceitas(void) {
+	char op;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -169,15 +116,19 @@ void menuReceitas(void) {
 	printf("**           5. Ver Receitas                                             **\n");
 	printf("**           0. Sair                                                     **\n");
 	printf("**                                                                       **\n");
-	printf("**           Escolha a opcao desejada:                                   **\n");
+	printf("             Escolha a opcao desejada:  ");
+	scanf("%c", &op);
+	getchar();
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	return op;
 }
 
-void menuEstoque(void) {
+char menuEstoque(void) {
+	char op;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -191,15 +142,19 @@ void menuEstoque(void) {
 	printf("**           3. Ver Estoque                                              **\n");
 	printf("**           0. Sair                                                     **\n");
 	printf("**                                                                       **\n");
-	printf("**           Escolha a opcao desejada:                                   **\n");
+	printf("             Escolha a opcao desejada:  ");
+	scanf("%c", &op);
+	getchar();
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	return op;
 }
 
-void menuFinancas(void) {
+char menuFinancas(void) {
+	char op;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -213,15 +168,19 @@ void menuFinancas(void) {
     printf("**           3. Ver Financas                                             **\n");
 	printf("**           0. Sair                                                     **\n");
 	printf("**                                                                       **\n");
-	printf("**           Escolha a opcao desejada:                                   **\n");
+	printf("             Escolha a opcao desejada:  ");
+	scanf("%c", &op);
+	getchar();
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	return op;
 }
 
 void menuInformacoes(void) {
+	char op;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -242,6 +201,15 @@ void menuInformacoes(void) {
 }
 
 void CadastrarReceitas(void) {
+	char nome[50];
+	char preparo[200];
+	char origem[20];
+	char obtencao[50];
+	char ingredientes[200];
+	int quantidade[50];
+	int quant;
+	int cont;
+
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -250,16 +218,46 @@ void CadastrarReceitas(void) {
 	printf("**           ------------  Cadastrar Receitas  -------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Nome da Receita:                                            **\n");
-	printf("**           Ingredientes:                                               **\n");
-    printf("**           Modo de Preparo:                                            **\n");
-	printf("**           Origem da Receita(Pais ou Regiao):                          **\n");
-	printf("**           Local de Obtencao da Receita(Site,Livro,Revista):           **\n");
-	printf("**                                                                       **\n");
-	printf("**                                                                       **\n");
-	printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
+	printf("           Nome da Receita: ");
+	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ,.;0-9]", nome);
+	getchar();
+	system("cls");
 	printf("\n");
+	printf("***************************************************************************\n");
+	printf("           Ingredientes: \n");
+	printf("           Digite a Quantidade de Ingredientes diferentes na Receita: ");
+	scanf("%d",&quant);
+	getchar();
+	for ( cont = 1; cont <= quant; cont++)
+	{
+		printf("           Ingrediente e tipo(kg,litro,g,unidade): \n");
+		printf("           (Exemplo:carne de sol,kg):");
+		scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",&ingredientes[cont]);
+		getchar();
+		printf("           Quantidade(So Numero): ");
+		scanf("%d", &quantidade[cont]);
+		getchar();
+	}
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+    printf("           Modo de Preparo: ");
+	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;]", preparo);
+	getchar();
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("           Origem da Receita(Pais ou Regiao): ");
+	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.;,0-9]",origem);
+	getchar();
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("           Local de Obtencao da Receita(Site,Livro,Revista): ");
+	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.;,0-9]",obtencao);
+	getchar();
+	printf("\n");
+	printf("***************************************************************************\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
@@ -340,6 +338,10 @@ void verReceitas(void) {
 }
 
 void adicionarEstoque(void) {
+	char item[20];
+	int quant;
+	float valor;
+
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -348,9 +350,15 @@ void adicionarEstoque(void) {
 	printf("**           ------------- Adicionar Estoque ---------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Item:                                                       **\n");
-	printf("**           Quantidade:                                                 **\n");
-	printf("**           Valor(R$):                                                  **\n");
+	printf("             Item:  ");
+	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ,.;0-9]", item);
+	getchar();
+	printf("             Quantidade:   ");
+	scanf("%d",&quant);
+	getchar();
+	printf("             Valor R$(00.00):    ");
+	scanf("%f",&valor);
+	getchar();
 	printf("**                                                                       **\n");	
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -403,6 +411,8 @@ void verEstoque(void) {
 }
 
 void adicionarFinancas(void) {
+	float financa;
+
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -411,7 +421,9 @@ void adicionarFinancas(void) {
 	printf("**           ------------- Adicionar Financas --------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Valor(R$):                                                  **\n");
+	printf("**           Valor(R$):   ");
+	scanf("%f",&financa);
+	getchar();
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
