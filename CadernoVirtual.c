@@ -76,6 +76,10 @@ char menuPrincipal(void) {
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
+    printf("**     		 Projeto Caderno Virtual de Receitas Culinarias              **\n");
+    printf("**    	     Desenvolvedor - Marcelo Jailson de Araujo Junior            **\n");
+    printf("**                                                                       **\n");
+	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**           ---------------  Menu Principal ---------------             **\n");
@@ -356,7 +360,7 @@ void adicionarEstoque(void) {
 	printf("             Quantidade:   ");
 	scanf("%d",&quant);
 	getchar();
-	printf("             Valor R$(00.00):    ");
+	printf("             Valor Gasto R$(00.00):    ");
 	scanf("%f",&valor);
 	getchar();
 	printf("**                                                                       **\n");	
