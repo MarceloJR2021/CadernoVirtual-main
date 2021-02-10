@@ -2,43 +2,110 @@
 #include <stdlib.h>
 
 char menuPrincipal(void);
+
 char menuReceitas(void);
-char menuEstoque(void);
-char menuFinancas(void);
 void CadastrarReceitas(void);
 void deletarReceitas(void);
 void encontrarReceitas(void);
 void atualizarReceitas(void);
 void verReceitas(void);
+
+char menuEstoque(void);
 void adicionarEstoque(void);
 void removerEstoque(void);
 void verEstoque(void);
+
+char menuFinancas(void);
 void adicionarFinancas(void);
 void removerFinancas(void);
 void verFinancas(void);
+
 void telaSobre(void);
+
 void menuInformacoes(void);
 
 int main(void) {
 	char opcao;
 
 	telaSobre();
-    opcao = menuPrincipal();
-	opcao = menuReceitas();
-	opcao = menuEstoque();
-	opcao = menuFinancas();
-	CadastrarReceitas();
-	deletarReceitas();
-	encontrarReceitas();
-	atualizarReceitas();
-	verReceitas();
-	adicionarEstoque();
-	removerEstoque();
-	verEstoque();
-	adicionarFinancas();
-	removerFinancas();
-	verFinancas();
-	menuInformacoes();
+	opcao = menuPrincipal();
+	switch (opcao)
+	{
+		case '1' :
+		opcao = menuReceitas();
+		switch (opcao) 
+		{
+			case '1' :
+			CadastrarReceitas();
+			break;
+
+			case '2' :
+			encontrarReceitas();
+			break; 
+
+			case '3' :
+			atualizarReceitas();
+			break;
+
+			case '4' :
+			deletarReceitas();
+			break;
+
+			case '5' :
+			verReceitas();
+			break;
+		}
+
+		break;
+
+		case '2' :
+		menuEstoque();
+		scanf("%d", &opcao);
+		switch (opcao) 
+		{
+			case '1' :
+			adicionarEstoque();
+			break;
+
+			case '2' :
+			removerEstoque();
+			break; 
+
+			case '3' :
+			verEstoque();
+			break;
+		}
+		break;
+
+		case '3' :
+		menuFinancas();
+		scanf("%d", &opcao);
+		switch (opcao) 
+		{
+			case '1' :
+			adicionarFinancas();
+			break;
+
+			case '2' :
+			removerFinancas();
+			break; 
+
+			case '3' :
+			verFinancas();
+			break;
+		}
+		break;
+
+		case '4' :
+		menuInformacoes();
+		break;
+
+		case '5' :
+		return 0;
+
+
+	}
+
 
 
 	
@@ -264,6 +331,16 @@ void CadastrarReceitas(void) {
 	printf("***************************************************************************\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	system("cls");
+	printf("\n");
+	printf("Nome da Receita : %s",&nome);
+	printf("\n");
+	printf("Modo de Preparo :\n%s",&preparo);
+	printf("\n");
+	printf("Origem : %s",&origem);
+	printf("\n");
+	printf("Local de Obtencao : %s",&obtencao);
+	printf("\n");
 }
 
 void encontrarReceitas(void) {
