@@ -26,14 +26,18 @@ void menuInformacoes(void);
 
 int main(void) {
 	char opcao;
+	char opcao1;
+	char opcao2;
+	char opcao3;
 
-	telaSobre();
+	do {
 	opcao = menuPrincipal();
 	switch (opcao)
 	{
 		case '1' :
-		opcao = menuReceitas();
-		switch (opcao) 
+		do {
+		opcao1 = menuReceitas();
+		switch (opcao1) 
 		{
 			case '1' :
 			CadastrarReceitas();
@@ -54,14 +58,19 @@ int main(void) {
 			case '5' :
 			verReceitas();
 			break;
+
+			case '0' :
+			opcao = '6';
+			break;
 		}
+		}while (opcao1 != '0');
 
 		break;
 
 		case '2' :
-		menuEstoque();
-		scanf("%d", &opcao);
-		switch (opcao) 
+		do {
+		opcao2 = menuEstoque();
+		switch (opcao2) 
 		{
 			case '1' :
 			adicionarEstoque();
@@ -74,13 +83,18 @@ int main(void) {
 			case '3' :
 			verEstoque();
 			break;
+
+			case '0' :
+			opcao = '6';
+			break;
 		}
+		} while (opcao2 != '0');
 		break;
 
 		case '3' :
-		menuFinancas();
-		scanf("%d", &opcao);
-		switch (opcao) 
+		do {
+		opcao3 = menuFinancas();
+		switch (opcao3) 
 		{
 			case '1' :
 			adicionarFinancas();
@@ -93,21 +107,24 @@ int main(void) {
 			case '3' :
 			verFinancas();
 			break;
+			
+			case '0' :
+			opcao = '6';
+			break;
+		
 		}
+
+		} while (opcao3 != '0');
 		break;
 
 		case '4' :
+		telaSobre();
 		menuInformacoes();
 		break;
 
-		case '5' :
-		return 0;
-
 
 	}
-
-
-
+	} while (opcao != 0);
 	
     	
 
@@ -156,7 +173,7 @@ char menuPrincipal(void) {
 	printf("**           2. Modo Estoque                                             **\n");
 	printf("**           3. Modo Financas                                            **\n");
     printf("**           4. Informacoes sobre o sistema                              **\n");
-	printf("**           5. Encerra o programa                                       **\n");
+	printf("**           0. Encerra o programa                                       **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
 	scanf("%c", &op);
@@ -185,7 +202,7 @@ char menuReceitas(void) {
 	printf("**           3. Atualizar Receitas                                       **\n");
     printf("**           4. Deletar receitas                                         **\n");
 	printf("**           5. Ver Receitas                                             **\n");
-	printf("**           0. Sair                                                     **\n");
+	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
 	scanf("%c", &op);
@@ -211,7 +228,7 @@ char menuEstoque(void) {
 	printf("**           1. Adicionar Estoque                                        **\n");
 	printf("**           2. Remover Estoque                                          **\n");
 	printf("**           3. Ver Estoque                                              **\n");
-	printf("**           0. Sair                                                     **\n");
+	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
 	scanf("%c", &op);
@@ -237,7 +254,7 @@ char menuFinancas(void) {
 	printf("**           1. Adicionar Financas                                       **\n");
 	printf("**           2. Remover   Financas                                       **\n");
     printf("**           3. Ver Financas                                             **\n");
-	printf("**           0. Sair                                                     **\n");
+	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
 	scanf("%c", &op);
