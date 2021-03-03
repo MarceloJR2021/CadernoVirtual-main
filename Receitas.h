@@ -5,3 +5,4 @@ void atualizarReceitas(void);
 void encontrarReceitas(void);
 void CadastrarReceitas(void);
 char menuReceitas(void);
+int valQuantidade(int);

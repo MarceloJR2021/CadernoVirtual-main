@@ -91,6 +91,7 @@ int main(void) {
 			case '0' :
 			opcao = '6';
 			break;
+
 		}
 		} while (opcao2 != '0');
 		break;

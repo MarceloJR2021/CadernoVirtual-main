@@ -1,3 +1,6 @@
+#include "Validacoes.h"
+#include <ctype.h>
+//Função para mostrar o menu das Receiats
 
 char menuReceitas(void) {
 	char op;
@@ -27,6 +30,7 @@ char menuReceitas(void) {
 	return op;
 }
 
+//Função para adicionar Receitas
 void CadastrarReceitas(void) {
 	char nome[50];
 	char preparo[200];
@@ -34,8 +38,10 @@ void CadastrarReceitas(void) {
 	char obtencao[50];
 	char ingredientes[200];
 	int quantidade[50];
-	int quant;
+	char quant;
 	int cont;
+	int valor;
+	int entrada;
 
     system("cls");
 	printf("\n");
@@ -53,9 +59,16 @@ void CadastrarReceitas(void) {
 	printf("***************************************************************************\n");
 	printf("           Ingredientes: \n");
 	printf("           Digite a Quantidade de Ingredientes diferentes na Receita: ");
-	scanf("%d",&quant);
-	getchar();
-	for ( cont = 1; cont <= quant; cont++)
+	do{
+		scanf("%s",&quant);
+		getchar();
+		entrada = valQuantidade(quant);
+		if(!entrada){
+			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+		}
+	}while(!entrada);
+	valor = atoi(&quant);
+	for ( cont = 1; cont <= valor; cont++)
 	{
 		printf("           Ingrediente e tipo(kg,litro,g,unidade): \n");
 		printf("           (Exemplo:carne de sol,kg):");
@@ -99,6 +112,7 @@ void CadastrarReceitas(void) {
 	printf("\n");
 }
 
+//Função para Encontrar Receitas
 
 void encontrarReceitas(void) {
     system("cls");
@@ -121,6 +135,8 @@ void encontrarReceitas(void) {
 	getchar();
 }
 
+//Função para Atualizar as Receitas
+
 void atualizarReceitas(void) {
     system("cls");
 	printf("\n");
@@ -140,6 +156,8 @@ void atualizarReceitas(void) {
 	getchar();
 }
 
+//Função para Deletar Receitas
+
 void deletarReceitas(void) {
     system("cls");
 	printf("\n");
@@ -156,6 +174,8 @@ void deletarReceitas(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
+
+//Função para Ver todos os nomes das Receitas 
 
 void verReceitas(void) {
     system("cls");

@@ -1,4 +1,6 @@
 
+//Função para mostrar o menu das finanças
+
 char menuFinancas(void) {
 	char op;
     system("cls");
@@ -25,6 +27,8 @@ char menuFinancas(void) {
 	return op;
 }
 
+//Função para adicionar Finanças
+
 void adicionarFinancas(void) {
 	float financa;
 
@@ -36,7 +40,7 @@ void adicionarFinancas(void) {
 	printf("**           ------------- Adicionar Financas --------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Valor(R$):   ");
+	printf("**           Valor(R$ 00.00):   ");
 	scanf("%f",&financa);
 	getchar();
 	printf("**                                                                       **\n");
@@ -45,6 +49,8 @@ void adicionarFinancas(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
+
+//Função para Remover Finanças
 
 void removerFinancas(void) {
     system("cls");
@@ -62,6 +68,8 @@ void removerFinancas(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
+
+//Função para Ver as Finanças
 
 void verFinancas(void) {
     system("cls");
