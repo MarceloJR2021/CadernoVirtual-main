@@ -124,6 +124,7 @@ void CadastrarReceitas(void) {
 	printf("\n");
 	printf("Local de Obtencao : %s",&obtencao);
 	printf("\n");
+	getchar();
 }
 
 //Função para Encontrar Receitas
