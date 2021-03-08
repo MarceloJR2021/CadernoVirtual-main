@@ -37,11 +37,13 @@ void CadastrarReceitas(void) {
 	char origem[20];
 	char obtencao[50];
 	char ingredientes[200];
+	char medida[12];
 	int quantidade[50];
 	char quant;
 	int cont;
 	int valor;
 	int entrada;
+	int entrada2;
 
     system("cls");
 	printf("\n");
@@ -62,22 +64,34 @@ void CadastrarReceitas(void) {
 	do{
 		scanf("%s",&quant);
 		getchar();
-		entrada = valQuantidade(quant);
+		entrada = entradaInt(quant);
 		if(!entrada){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}
 	}while(!entrada);
-	valor = atoi(&quant);
-	for ( cont = 1; cont <= valor; cont++)
-	{
-		printf("           Ingrediente e tipo(kg,litro,g,unidade): \n");
-		printf("           (Exemplo:carne de sol,kg):");
-		scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",&ingredientes[cont]);
+	printf("           Entre com o nome do Ingrediente: ");
+	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",ingredientes);
+	getchar();
+	printf("	   Entre com a medida:(kg,litro,g,unidade): ");
+	do{
+		scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",medida);
 		getchar();
-		printf("           Quantidade(So Numero): ");
-		scanf("%d", &quantidade[cont]);
+		entrada2 = entradaMedida(medida);
+		if(!entrada2){
+			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+		}
+	}while(!entrada);
+	printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
+	do{
+		scanf("%d", &quantidade);
 		getchar();
-	}
+		entrada = entradaInt(&quantidade);
+		if(!entrada){
+			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+		}
+	}while(!entrada);
+		
+	
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");

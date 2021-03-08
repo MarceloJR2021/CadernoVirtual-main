@@ -1,1 +1,2 @@
-int valQuantidade(char);
+int entradaInt(char);
+int entradaMedida(char []);

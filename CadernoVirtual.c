@@ -3,6 +3,7 @@
 #include "Receitas.h"
 #include "Estoque.h"
 #include "Financas.h"
+#include "Validacoes.h"
 
 
 char menuPrincipal(void);
