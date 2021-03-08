@@ -13,8 +13,9 @@ int entradaInt(char ent){
 
 int entradaMedida(char medida[]){
     int m;
+    int i;
     m = strlen(medida);
-    for(int i=0;i < m;i++){
+    for(i = 0;i < m;i++){
         medida[i] = toupper(medida[i]);
     }
     if (strcmp(medida,"KG") == 0 || strcmp(medida,"LITRO") == 0 || strcmp(medida,"G") == 0 || strcmp(medida,"UNIDADE") == 0){

@@ -38,7 +38,7 @@ void CadastrarReceitas(void) {
 	char obtencao[50];
 	char ingredientes[200];
 	char medida[12];
-	int quantidade[50];
+	int quantidade;
 	char quant;
 	int cont;
 	int valor;
@@ -76,16 +76,16 @@ void CadastrarReceitas(void) {
 	do{
 		scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",medida);
 		getchar();
-		entrada2 = entradaMedida(medida);
-		if(!entrada2){
+		entrada = entradaMedida(medida);
+		if(!entrada){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}
 	}while(!entrada);
 	printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
 	do{
-		scanf("%d", &quantidade);
+		scanf("%s",&quantidade);
 		getchar();
-		entrada = entradaInt(&quantidade);
+		entrada = entradaInt(quantidade);
 		if(!entrada){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}

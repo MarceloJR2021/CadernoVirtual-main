@@ -8,23 +8,6 @@
 
 char menuPrincipal(void);
 
-char menuReceitas(void);
-void CadastrarReceitas(void);
-void deletarReceitas(void);
-void encontrarReceitas(void);
-void atualizarReceitas(void);
-void verReceitas(void);
-
-char menuEstoque(void);
-void adicionarEstoque(void);
-void removerEstoque(void);
-void verEstoque(void);
-
-char menuFinancas(void);
-void adicionarFinancas(void);
-void removerFinancas(void);
-void verFinancas(void);
-
 void telaSobre(void);
 
 void menuInformacoes(void);
@@ -130,11 +113,14 @@ int main(void) {
 
 
 	}
+		if (opcao == '0'){
+			return 0;
+		}
 	} while (opcao != '0');
 	
     	
 
-    return 0;
+    
 
 }
 
