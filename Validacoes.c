@@ -2,11 +2,15 @@
 #include <ctype.h>
 #include <string.h>
 
-int entradaInt(char ent){
-    if(!isdigit(ent)){
-        return 0;
-    }
 
+int entradaInt(char ent[]){
+    int i;
+    int m = strlen(ent);
+    for(i = 0;i < m;i++){
+        if(!isdigit(ent[i])){
+            return 0;
+        }
+    }
     return 1;
 
 }
@@ -22,4 +26,25 @@ int entradaMedida(char medida[]){
         return 1;
     }
     return 0;
+}
+
+int entradaFinanca(char financa[]){
+    int i;
+    int m = strlen(financa);
+    char ponto = '.';
+    int contponto = 0;
+    for(i = 0;i < m;i++){
+        if(!isdigit(financa[i]) && financa[i] != ponto) {
+            return 0;
+        }
+        if(financa[i] == ponto){
+            contponto++;
+        }
+    }
+    if(contponto == 0){
+        return 0;
+    }
+    return 1;
+
+
 }

@@ -4,13 +4,12 @@
 #include "Estoque.h"
 #include "Financas.h"
 #include "Validacoes.h"
+#include "Relatorio.h"
 
 
 char menuPrincipal(void);
 
 void telaSobre(void);
-
-void menuInformacoes(void);
 
 int main(void) {
 	char opcao;
@@ -20,6 +19,7 @@ int main(void) {
 
 	do {
 	opcao = menuPrincipal();
+	
 	switch (opcao)
 	{
 		case '1' :
@@ -108,7 +108,12 @@ int main(void) {
 
 		case '4' :
 		telaSobre();
-		menuInformacoes();
+		break;
+
+		case '5' :
+		relatorioReceitas();
+		relatorioEstoque();
+		relatorioFinancas();
 		break;
 
 
@@ -117,6 +122,8 @@ int main(void) {
 			return 0;
 		}
 	} while (opcao != '0');
+
+
 	
     	
 
@@ -165,6 +172,7 @@ char menuPrincipal(void) {
 	printf("**           2. Modo Estoque                                             **\n");
 	printf("**           3. Modo Financas                                            **\n");
     printf("**           4. Informacoes sobre o sistema                              **\n");
+	printf("**           5. Relatorios        		                         **\n");
 	printf("**           0. Encerra o programa                                       **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
@@ -179,26 +187,7 @@ char menuPrincipal(void) {
 	return op;
 }
 
-void menuInformacoes(void) {
-	char op;
-    system("cls");
-	printf("\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           ---------------  Informacoes    ---------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	printf("**           Quantidade de Receitas:                                     **\n");
-	printf("**           Quantidade de Itens no Estoque:                             **\n");
-    printf("**           Financas:                                                   **\n");
-	printf("**                                                                       **\n");
-	printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-}
+
 
 
 

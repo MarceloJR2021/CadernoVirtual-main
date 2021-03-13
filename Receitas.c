@@ -38,12 +38,10 @@ void CadastrarReceitas(void) {
 	char obtencao[50];
 	char ingredientes[200];
 	char medida[12];
-	int quantidade;
-	char quant;
+	char quantidade[12];
+	char quant[12];
 	int cont;
 	int valor;
-	int entrada;
-	int entrada2;
 
     system("cls");
 	printf("\n");
@@ -54,7 +52,7 @@ void CadastrarReceitas(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("           Nome da Receita: ");
-	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ,.;0-9]", nome);
+	scanf("%[^\n]", nome);
 	getchar();
 	system("cls");
 	printf("\n");
@@ -62,53 +60,50 @@ void CadastrarReceitas(void) {
 	printf("           Ingredientes: \n");
 	printf("           Digite a Quantidade de Ingredientes diferentes na Receita: ");
 	do{
-		scanf("%s",&quant);
+		scanf("%s",quant);
 		getchar();
-		entrada = entradaInt(quant);
-		if(!entrada){
+		if(!entradaInt(quant)){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}
-	}while(!entrada);
+	}while(!entradaInt(quant));
 	printf("           Entre com o nome do Ingrediente: ");
-	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",ingredientes);
+	scanf("%[^\n]",ingredientes);
 	getchar();
 	printf("	   Entre com a medida:(kg,litro,g,unidade): ");
 	do{
-		scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;0-9]",medida);
+		scanf("%[^\n]",medida);
 		getchar();
-		entrada = entradaMedida(medida);
-		if(!entrada){
+		if(!entradaMedida(medida)){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}
-	}while(!entrada);
+	}while(!entradaMedida(medida));
 	printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
 	do{
-		scanf("%s",&quantidade);
+		scanf("%s",quantidade);
 		getchar();
-		entrada = entradaInt(quantidade);
-		if(!entrada){
+		if(!entradaInt(quantidade);){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}
-	}while(!entrada);
+	}while(!entradaInt(quantidade););
 		
 	
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
     printf("           Modo de Preparo: ");
-	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.,;]", preparo);
+	scanf("%[^\n]", preparo);
 	getchar();
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Origem da Receita(Pais ou Regiao): ");
-	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.;,0-9]",origem);
+	scanf("%[^\n]",origem);
 	getchar();
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Local de Obtencao da Receita(Site,Livro,Revista): ");
-	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ.;,0-9]",obtencao);
+	scanf("%[^\n]",obtencao);
 	getchar();
 	printf("\n");
 	printf("***************************************************************************\n");
