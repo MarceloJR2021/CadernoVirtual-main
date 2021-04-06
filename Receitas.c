@@ -81,10 +81,10 @@ void CadastrarReceitas(void) {
 	do{
 		scanf("%s",quantidade);
 		getchar();
-		if(!entradaInt(quantidade);){
+		if(!entradaInt(quantidade)){
 			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 		}
-	}while(!entradaInt(quantidade););
+	}while(!entradaInt(quantidade));
 		
 	
 	system("cls");
@@ -126,22 +126,35 @@ void CadastrarReceitas(void) {
 
 void encontrarReceitas(void) {
     system("cls");
+	char nome[50];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
 	printf("**           -----------------------------------------------             **\n");
-	printf("**           ------------ Encontrar Receita por ------------             **\n");
+	printf("**           ------------- Encontrar Receita   -------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           1. Nome:                                                    **\n");
-	printf("**           2. Ingrediente:                                             **\n");
-    printf("**           3. Origem:                                                  **\n");
-	printf("**           0. Voltar                                                   **\n");
-	printf("**                                                                       **\n");
-	printf("**                                                                       **\n");
+	printf("**           Digite o nome da Receitas:                                  **\n");	
+	printf("             ");
+	scanf("%[^\n]", nome);
+	getchar();
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+	system("cls");
+	printf("\n");
+	printf("Nome da Receita : %s",&nome);
+	printf("\n");
+	printf("Ingredientes :");
+	printf("\n");
+	printf("Modo de Preparo :");
+	printf("\n");
+	printf("Origem :");
+	printf("\n");
+	printf("Local de Obtencao :");
+	printf("\n");
+	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
 
@@ -149,6 +162,7 @@ void encontrarReceitas(void) {
 
 void atualizarReceitas(void) {
     system("cls");
+	char nome[50];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -157,7 +171,9 @@ void atualizarReceitas(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("**           Nome da Receita para Atualizar:                             **\n");
-	printf("**                                                                       **\n");
+	printf("             ");
+	scanf("%[^\n]", nome);
+	getchar();
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
@@ -170,6 +186,7 @@ void atualizarReceitas(void) {
 
 void deletarReceitas(void) {
     system("cls");
+	char nome[50];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -178,8 +195,16 @@ void deletarReceitas(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("**           Nome da Receita para Deletar:                               **\n");
-	printf("**                                                                       **\n");
+	printf("             ");
+	scanf("%[^\n]", nome);
+	getchar();
 	printf("***************************************************************************\n");
+	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+	system("cls");
+	printf("\n");
+	printf("				RECEITA DELETADA!!");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();

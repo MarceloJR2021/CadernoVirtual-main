@@ -47,7 +47,7 @@ void adicionarFinancas(void) {
 		scanf("%s",financa);
 		getchar();
 		if(!entradaFinanca(financa)){
-			printf("	   Entrada Invalida!\n	   Digite Novamente: R$ ");
+			printf("	   Entrada Invalida!\n	   Digite NovamenteR$(00.00): R$ ");
 		}
 	}while(!entradaFinanca(financa));
 	getchar();

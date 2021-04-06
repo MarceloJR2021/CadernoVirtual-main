@@ -1,5 +1,5 @@
 
-
+//Função para mostrar o menu do Estoque
 char menuEstoque(void) {
 	char op;
     system("cls");
@@ -26,10 +26,13 @@ char menuEstoque(void) {
 	return op;
 }
 
+//Função para adicionar Estoque
+
 void adicionarEstoque(void) {
 	char item[20];
-	int quant;
-	float valor;
+	char quant[12];
+	char saida[12];
+	char medida[10];
 
     system("cls");
 	printf("\n");
@@ -40,14 +43,32 @@ void adicionarEstoque(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("             Item:  ");
-	scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ,.;0-9]", item);
+	scanf("%[^\n]", item);
 	getchar();
 	printf("             Quantidade:   ");
-	scanf("%d",&quant);
-	getchar();
+	do{
+		scanf("%s",quant);
+		getchar();
+		if(!entradaInt(quant)){
+			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
+		}
+	}while(!entradaInt(quant));
+	printf("	     Entre com a medida:(kg,litro,g,unidade): ");
+	do{
+		scanf("%[^\n]",medida);
+		getchar();
+		if(!entradaMedida(medida)){
+			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
+		}
+	}while(!entradaMedida(medida));
 	printf("             Valor Gasto R$(00.00):    ");
-	scanf("%f",&valor);
-	getchar();
+	do{
+		scanf("%s",saida);
+		getchar();
+		if(!entradaFinanca(saida)){
+			printf("	   Entrada Invalida!\n	     Digite NovamenteR$(00.00): R$ ");
+		}
+	}while(!entradaFinanca(saida));
 	printf("**                                                                       **\n");	
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -55,8 +76,12 @@ void adicionarEstoque(void) {
 	getchar();
 }
 
+//Função para Remover Estoque
 void removerEstoque(void) {
     system("cls");
+	char item[50];
+	char quant[12];
+	char medida[10];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -64,36 +89,55 @@ void removerEstoque(void) {
 	printf("**           -------------- Remover Estoque ----------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Item:                                                       **\n");
-	printf("**           Quantidade:                                                 **\n");
+	printf("             Item:  ");
+	scanf("%[^\n]", item);
+	getchar();
+	printf("**           Quantidade: ");
+	do{
+		scanf("%s",quant);
+		getchar();
+		if(!entradaInt(quant)){
+			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
+		}
+	}while(!entradaInt(quant));
+	printf("	     Entre com a medida:(kg,litro,g,unidade): ");
+	do{
+		scanf("%[^\n]",medida);
+		getchar();
+		if(!entradaMedida(medida)){
+			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
+		}
+	}while(!entradaMedida(medida));
+	
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	system("cls");
+	printf("\n");
+	printf("				ITEM REMOVIDO DO ESTOQUE!!");
+	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
 }
 
+//Função para ver o que tem no Estoque
 void verEstoque(void) {
     system("cls");
 	printf("\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           ---------------   Ver Estoque  ----------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	printf("**             Nome              |            Quantidade                 **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                               |                                       **\n");
-	printf("**                                                                       **\n");			
-	printf("***************************************************************************\n");
+	printf("******************************************************\n");
+	printf("**                                  			    **\n");
+	printf("** -----------------------------------------------  **\n");
+	printf("** ---------------   Ver Estoque  ----------------  **\n");
+	printf("** -----------------------------------------------  **\n");
+	printf("**                                                  **\n");
+	printf("             Nome |   Quantidade |  Medida        \n");
+	printf("                  |              |			      \n");
+	printf("                  |              |			      \n");
+	printf("                  |              |		          \n");
+	printf("                  |              |		          \n");			
+	printf("******************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
