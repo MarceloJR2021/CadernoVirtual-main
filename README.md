@@ -14,7 +14,7 @@ Desenvolvedor - Marcelo Jailson de Araujo Junior
 
 # Caderno Virtual de Receitas Culinárias
 
-Programa de um projeto de um caderno virtual de receitas culinárias 
+Programa de um caderno virtual de receitas culinárias 
 com a finalidade de Cadastrar,pesquisar,seja por nome,ingredientes,  
 localidade,custo ou outro,adicionando ou removendo como o usuário   
 desejar.Em resumo é um sistema capaz de gerenciar um conjunto de      
