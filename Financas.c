@@ -42,7 +42,7 @@ void adicionarFinancas(void) {
 	printf("**           ------------- Adicionar Financas --------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Valor(R$ 00.00): R$ ");
+	printf("             Valor(R$ 00.00): R$ ");
 	do{
 		scanf("%s",financa);
 		getchar();
@@ -62,6 +62,8 @@ void adicionarFinancas(void) {
 
 void removerFinancas(void) {
     system("cls");
+	char financa[15];
+
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -69,9 +71,22 @@ void removerFinancas(void) {
 	printf("**           -------------- Remover Financas ---------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Valor(R$):                                                  **\n");
+	printf("**           Valor(R$ 00.00): R$ ");
+	do{
+		scanf("%s",financa);
+		getchar();
+		if(!entradaFinanca(financa)){
+			printf("	   Entrada Invalida!\n	   Digite NovamenteR$(00.00): R$ ");
+		}
+	}while(!entradaFinanca(financa));
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
+	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+	system("cls");
+	printf("\n");
+	printf("				Financa Removida!!");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();

@@ -132,6 +132,7 @@ int main(void) {
 }
 
 void telaSobre(void) {
+	system("cls");
     printf("\n");
     printf("*****************************************************************************\n");
     printf("**      Projeto Caderno Virtual de Receitas Culinarias                     **\n");
