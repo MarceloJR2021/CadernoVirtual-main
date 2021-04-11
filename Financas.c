@@ -1,5 +1,17 @@
 #include "Validacoes.h"
 #include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "string.h"
+
+struct financas {
+	char financa[10];
+	char ultEntrada[10];
+	char ultSaida[10];
+	
+};
+
+typedef struct financas Financas;
 
 //Função para mostrar o menu das finanças
 
@@ -33,6 +45,8 @@ char menuFinancas(void) {
 
 void adicionarFinancas(void) {
 	char financa[15];
+	Financas* fin;
+	fin = (Financas*)malloc(sizeof(Financas));
 
     system("cls");
 	printf("\n");
@@ -56,6 +70,7 @@ void adicionarFinancas(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	free(fin);
 }
 
 //Função para Remover Finanças

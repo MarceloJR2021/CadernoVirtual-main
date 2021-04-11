@@ -3,7 +3,7 @@ void relatorioReceitas(void) {
 	char quant[] = "21";
 	char nome[] = "Macarrao com Salsicha"; 
 	char Ingredientes[] = " 1 Unidade de Macarrao,5 unidades de Salsicha,\n             50 g de Manteiga,1 Unidade de molho\n";
-	char preparo[] = "Preparar o Macarrao,cortar as salsichas,temperar \n             o macarrao com molho e manteiga e jogar as salsichas\n";
+	char preparo[] = "1 - Ferver a Água com Macarrao ; 2 - cortar as salsichas ; \n 		3 - temperar  o macarrao com molho e manteiga e jogar as salsichas\n";
     char origem[] = "Italia";
 	char obtencao[] = "www.receitas.com.br";
 	system("cls");

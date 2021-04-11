@@ -1,4 +1,13 @@
+#include <ctype.h>
 
+struct estoque {
+	char item[20];
+	char quantidade[50];
+	char preco[20];
+	
+};
+
+typedef struct estoque Estoque;
 //Função para mostrar o menu do Estoque
 char menuEstoque(void) {
 	char op;
@@ -29,7 +38,8 @@ char menuEstoque(void) {
 //Função para adicionar Estoque
 
 void adicionarEstoque(void) {
-	char item[20];
+	Estoque* est;
+	est = (Estoque*)malloc(sizeof(Estoque));
 	char quant[12];
 	char saida[12];
 	char medida[10];
@@ -43,7 +53,7 @@ void adicionarEstoque(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("             Item:  ");
-	scanf("%[^\n]", item);
+	scanf("%20[^\n]", est->item);
 	getchar();
 	printf("             Quantidade:   ");
 	do{
@@ -74,6 +84,7 @@ void adicionarEstoque(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	free(est);
 }
 
 //Função para Remover Estoque

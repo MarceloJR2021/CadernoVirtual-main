@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include "Receitas.h"
 
 
 int entradaInt(char ent[]){
@@ -15,7 +16,7 @@ int entradaInt(char ent[]){
 
 }
 
-int entradaMedida(char medida[]){
+int entradaMedida(Ingredientes* in){
     int m;
     int i;
     m = strlen(medida);

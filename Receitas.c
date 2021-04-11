@@ -1,5 +1,33 @@
 #include "Validacoes.h"
 #include <ctype.h>
+
+struct receitas {
+	int codReceita;
+	char nome[50];
+	char origem[20];
+	char obtencao[30];
+	char tempo[6];
+	char dificuldade[2];
+
+};
+
+struct preparo {
+	int codReceita;
+	char preparo[200];
+
+};
+
+struct ingredientes {
+	int codReceita;
+	char ingredientes[50];
+	char medida[12];
+	char quantidade[50];
+};
+
+typedef struct receitas Receita;
+typedef struct preparo Preparo;
+typedef struct ingredientes Ingredientes;
+
 //Função para mostrar o menu das Receiats
 
 char menuReceitas(void) {
@@ -32,10 +60,13 @@ char menuReceitas(void) {
 
 //Função para adicionar Receitas
 void CadastrarReceitas(void) {
-	char nome[50];
+	Receita* rec;
+	Preparo* prep;
+	Ingredientes* ing;
+	rec = (Receita*)malloc(sizeof(Receita));
+	prep = (Preparo*)malloc(sizeof(Preparo));
+	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
 	char preparo[200];
-	char origem[20];
-	char obtencao[50];
 	char ingredientes[200];
 	char medida[12];
 	char quantidade[12];
@@ -51,8 +82,13 @@ void CadastrarReceitas(void) {
 	printf("**           ------------  Cadastrar Receitas  -------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
+	printf("           Codigo da Receita: ");
+	scanf("%d", rec->codReceita);
+	getchar();
+	system("cls");
+	printf("\n");
 	printf("           Nome da Receita: ");
-	scanf("%[^\n]", nome);
+	scanf("%50[^\n]", rec->nome);
 	getchar();
 	system("cls");
 	printf("\n");
@@ -67,7 +103,7 @@ void CadastrarReceitas(void) {
 		}
 	}while(!entradaInt(quant));
 	printf("           Entre com o nome do Ingrediente: ");
-	scanf("%[^\n]",ingredientes);
+	scanf("%50[^\n]",ing->ingredientes);
 	getchar();
 	printf("	   Entre com a medida:(kg,litro,g,unidade): ");
 	do{
@@ -91,19 +127,33 @@ void CadastrarReceitas(void) {
 	printf("\n");
 	printf("***************************************************************************\n");
     printf("           Modo de Preparo: ");
-	scanf("%[^\n]", preparo);
+	scanf("%200[^\n]", prep->preparo);
 	getchar();
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Origem da Receita(Pais ou Regiao): ");
-	scanf("%[^\n]",origem);
+	scanf("%20[^\n]",rec->origem);
 	getchar();
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Local de Obtencao da Receita(Site,Livro,Revista): ");
-	scanf("%[^\n]",obtencao);
+	scanf("%30[^\n]",rec->obtencao);
+	getchar();
+	printf("\n");
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("           Tempo de Preparo em minutos(Somente numeros) : ");
+	scanf("%6[^\n]",rec->tempo);
+	getchar();
+	printf("\n");
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("           Dificuldade de preparo,primeira letra(F[facil],M[medio] OU D[dificil]): ");
+	scanf("%2[^\n]",rec->dificuldade);
 	getchar();
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -111,15 +161,22 @@ void CadastrarReceitas(void) {
 	getchar();
 	system("cls");
 	printf("\n");
-	printf("Nome da Receita : %s",&nome);
+	printf("Nome da Receita : %s",rec[0].nome);
 	printf("\n");
-	printf("Modo de Preparo :\n%s",&preparo);
+	printf("Modo de Preparo :\n%s",prep[0].preparo);
 	printf("\n");
-	printf("Origem : %s",&origem);
+	printf("Origem : %s",rec[0].origem);
 	printf("\n");
-	printf("Local de Obtencao : %s",&obtencao);
+	printf("Local de Obtencao : %s",rec[0].obtencao);
+	printf("\n");
+	printf("Tempo de Preparo(Minutos) : %s",rec[0].tempo);
+	printf("\n");
+	printf("Dificuldade de Preparo : %s",rec[0].dificuldade);
 	printf("\n");
 	getchar();
+	free(rec);
+	free(ing);
+	free(prep);
 }
 
 //Função para Encontrar Receitas
