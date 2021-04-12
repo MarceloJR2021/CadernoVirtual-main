@@ -66,13 +66,11 @@ void CadastrarReceitas(void) {
 	rec = (Receita*)malloc(sizeof(Receita));
 	prep = (Preparo*)malloc(sizeof(Preparo));
 	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
-	char preparo[200];
 	char ingredientes[200];
 	char medida[12];
 	char quantidade[12];
-	char quant[12];
-	int cont;
-	int valor;
+	char quant[2];
+	int cont = 0;
 
     system("cls");
 	printf("\n");
@@ -94,33 +92,32 @@ void CadastrarReceitas(void) {
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Ingredientes: \n");
-	printf("           Digite a Quantidade de Ingredientes diferentes na Receita: ");
 	do{
-		scanf("%s",quant);
+		printf("           Entre com o nome do Ingrediente: ");
+		scanf("%50[^\n]",ing->ingredientes);
 		getchar();
-		if(!entradaInt(quant)){
-			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
-		}
-	}while(!entradaInt(quant));
-	printf("           Entre com o nome do Ingrediente: ");
-	scanf("%50[^\n]",ing->ingredientes);
-	getchar();
-	printf("	   Entre com a medida:(kg,litro,g,unidade): ");
-	do{
-		scanf("%[^\n]",medida);
+		printf("	   Entre com a medida:(kg,litro,g,unidade): ");
+		do{
+			scanf("%[^\n]",medida);
+			getchar();
+			if(!entradaMedida(medida)){
+				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+			}
+		}while(!entradaMedida(medida));
+		printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
+		do{
+			scanf("%s",quantidade);
+			getchar();
+			if(!entradaInt(quantidade)){
+				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+			}
+		}while(!entradaInt(quantidade));
+		printf("	   Deseja Adicionar mais Ingredientes(S/N) :");
+		scanf("%[^\n]",quant);
 		getchar();
-		if(!entradaMedida(medida)){
-			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
-		}
-	}while(!entradaMedida(medida));
-	printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
-	do{
-		scanf("%s",quantidade);
-		getchar();
-		if(!entradaInt(quantidade)){
-			printf("	   Entrada Invalida!\n	   Digite Novamente: ");
-		}
-	}while(!entradaInt(quantidade));
+		system("cls");
+		printf("\n");
+	}while(strcmp(quant,"S") == 0 || strcmp(quant,"s") == 0);
 		
 	
 	system("cls");
