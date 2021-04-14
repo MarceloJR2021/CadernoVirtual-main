@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+
 void relatorioReceitas(void) {
 	char op;
 	char quant[] = "21";

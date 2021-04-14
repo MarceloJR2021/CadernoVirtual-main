@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include "Receitas.h"
+#include <stdio.h>
 
 
-int entradaInt(char ent[]){
+
+
+int entradaInt(char* ent){
     int i;
     int m = strlen(ent);
     for(i = 0;i < m;i++){
@@ -16,7 +18,7 @@ int entradaInt(char ent[]){
 
 }
 
-int entradaMedida(Ingredientes* in){
+int entradaMedida(char* medida){
     int m;
     int i;
     m = strlen(medida);
@@ -29,7 +31,7 @@ int entradaMedida(Ingredientes* in){
     return 0;
 }
 
-int entradaFinanca(char financa[]){
+int entradaFinanca(char* financa){
     int i;
     int m = strlen(financa);
     char ponto = '.';

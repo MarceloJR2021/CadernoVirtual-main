@@ -3,13 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "string.h"
+#include "Financas.h"
 
-struct financas {
-	char financa[10];
-	char ultEntrada[10];
-	char ultSaida[10];
-	
-};
+
 
 typedef struct financas Financas;
 
@@ -44,9 +40,8 @@ char menuFinancas(void) {
 //Função para adicionar Finanças
 
 void adicionarFinancas(void) {
-	char financa[15];
 	Financas* fin;
-	fin = (Financas*)malloc(sizeof(Financas));
+	fin = (Financas*) malloc(sizeof(Financas));
 
     system("cls");
 	printf("\n");
@@ -58,12 +53,12 @@ void adicionarFinancas(void) {
 	printf("**                                                                       **\n");
 	printf("             Valor(R$ 00.00): R$ ");
 	do{
-		scanf("%s",financa);
+		scanf("%[^\n]",fin->ultEntrada);
 		getchar();
-		if(!entradaFinanca(financa)){
+		if(!entradaFinanca(fin->ultEntrada)){
 			printf("	   Entrada Invalida!\n	   Digite NovamenteR$(00.00): R$ ");
 		}
-	}while(!entradaFinanca(financa));
+	}while(!entradaFinanca(fin->ultEntrada));
 	getchar();
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
@@ -77,7 +72,8 @@ void adicionarFinancas(void) {
 
 void removerFinancas(void) {
     system("cls");
-	char financa[15];
+	Financas* fin;
+	fin = (Financas*) malloc(sizeof(Financas));
 
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -88,12 +84,12 @@ void removerFinancas(void) {
 	printf("**                                                                       **\n");
 	printf("**           Valor(R$ 00.00): R$ ");
 	do{
-		scanf("%s",financa);
+		scanf("%[^\n]",fin->ultSaida);
 		getchar();
-		if(!entradaFinanca(financa)){
+		if(!entradaFinanca(fin->ultSaida)){
 			printf("	   Entrada Invalida!\n	   Digite NovamenteR$(00.00): R$ ");
 		}
-	}while(!entradaFinanca(financa));
+	}while(!entradaFinanca(fin->ultSaida));
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -105,6 +101,7 @@ void removerFinancas(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	free(fin);
 }
 
 //Função para Ver as Finanças

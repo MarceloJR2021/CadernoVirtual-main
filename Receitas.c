@@ -1,28 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Validacoes.h"
 #include <ctype.h>
+#include "Receitas.h"
 
-struct receitas {
-	int codReceita;
-	char nome[50];
-	char origem[20];
-	char obtencao[30];
-	char tempo[6];
-	char dificuldade[2];
-
-};
-
-struct preparo {
-	int codReceita;
-	char preparo[200];
-
-};
-
-struct ingredientes {
-	int codReceita;
-	char ingredientes[50];
-	char medida[12];
-	char quantidade[50];
-};
 
 typedef struct receitas Receita;
 typedef struct preparo Preparo;
@@ -63,13 +45,10 @@ void CadastrarReceitas(void) {
 	Receita* rec;
 	Preparo* prep;
 	Ingredientes* ing;
-	rec = (Receita*)malloc(sizeof(Receita));
-	prep = (Preparo*)malloc(sizeof(Preparo));
+	rec = (Receita*) malloc(sizeof(Receita));
+	prep = (Preparo*) malloc(sizeof(Preparo));
 	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
-	char ingredientes[200];
-	char medida[12];
-	char quantidade[12];
-	char quant[2];
+	char escolha[2];
 	int cont = 0;
 
     system("cls");
@@ -80,13 +59,10 @@ void CadastrarReceitas(void) {
 	printf("**           ------------  Cadastrar Receitas  -------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("           Codigo da Receita: ");
-	scanf("%d", rec->codReceita);
-	getchar();
-	system("cls");
 	printf("\n");
+	rec->codReceita = 0;
 	printf("           Nome da Receita: ");
-	scanf("%50[^\n]", rec->nome);
+	scanf("%[^\n]", rec->nome);
 	getchar();
 	system("cls");
 	printf("\n");
@@ -94,92 +70,144 @@ void CadastrarReceitas(void) {
 	printf("           Ingredientes: \n");
 	do{
 		printf("           Entre com o nome do Ingrediente: ");
-		scanf("%50[^\n]",ing->ingredientes);
+		scanf("%[^\n]",ing->ingredientes);
 		getchar();
 		printf("	   Entre com a medida:(kg,litro,g,unidade): ");
 		do{
-			scanf("%[^\n]",medida);
+			scanf("%[^\n]", ing->medida);
 			getchar();
-			if(!entradaMedida(medida)){
+			if(!entradaMedida(ing->medida)){
 				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 			}
-		}while(!entradaMedida(medida));
+		}while(!entradaMedida(ing->medida));
 		printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
 		do{
-			scanf("%s",quantidade);
+			scanf("%[^\n]",ing->quantidade);
 			getchar();
-			if(!entradaInt(quantidade)){
+			if(!entradaInt(ing->quantidade)){
 				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 			}
-		}while(!entradaInt(quantidade));
+		}while(!entradaInt(ing->quantidade));
 		printf("	   Deseja Adicionar mais Ingredientes(S/N) :");
-		scanf("%[^\n]",quant);
+		scanf("%[^\n]",escolha);
 		getchar();
 		system("cls");
 		printf("\n");
-	}while(strcmp(quant,"S") == 0 || strcmp(quant,"s") == 0);
+		cont++;
+	}while(strcmp(escolha,"S") == 0 || strcmp(escolha,"s") == 0);
 		
 	
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
     printf("           Modo de Preparo: ");
-	scanf("%200[^\n]", prep->preparo);
+	scanf("%[^\n]", prep->preparo);
 	getchar();
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Origem da Receita(Pais ou Regiao): ");
-	scanf("%20[^\n]",rec->origem);
+	scanf("%[^\n]",rec->origem);
 	getchar();
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Local de Obtencao da Receita(Site,Livro,Revista): ");
-	scanf("%30[^\n]",rec->obtencao);
+	scanf("%[^\n]",rec->obtencao);
 	getchar();
 	printf("\n");
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Tempo de Preparo em minutos(Somente numeros) : ");
-	scanf("%6[^\n]",rec->tempo);
-	getchar();
+	do{
+			scanf("%[^\n]",rec->tempo);
+			getchar();
+			if(!entradaInt(rec->tempo)){
+				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+			}
+	}while(!entradaInt(rec->tempo));
 	printf("\n");
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Dificuldade de preparo,primeira letra(F[facil],M[medio] OU D[dificil]): ");
-	scanf("%2[^\n]",rec->dificuldade);
+	scanf("%[^\n]",rec->dificuldade);
 	getchar();
 	printf("\n");
+	rec->status = 'a';
 	printf("***************************************************************************\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-	system("cls");
-	printf("\n");
-	printf("Nome da Receita : %s",rec[0].nome);
-	printf("\n");
-	printf("Modo de Preparo :\n%s",prep[0].preparo);
-	printf("\n");
-	printf("Origem : %s",rec[0].origem);
-	printf("\n");
-	printf("Local de Obtencao : %s",rec[0].obtencao);
-	printf("\n");
-	printf("Tempo de Preparo(Minutos) : %s",rec[0].tempo);
-	printf("\n");
-	printf("Dificuldade de Preparo : %s",rec[0].dificuldade);
-	printf("\n");
+	gravarReceita(rec);
 	getchar();
 	free(rec);
 	free(ing);
 	free(prep);
 }
 
+
+
+//Gravar Receita em arquivo
+void gravarReceita(Receita* rec){
+	FILE* cd;
+	cd = fopen("Receitas.dat","ab");
+	if (cd == NULL) {
+		cd = fopen("Receitas.dat","wb");
+  }
+  fwrite(rec, sizeof(Receita), 1, cd);
+  fclose(cd);
+}
+
+
+
+//Buscar Receita
+Receita* buscarReceita(char* nome) {
+  FILE* cd;
+  Receita* rec;
+
+  rec = (Receita*) malloc(sizeof(Receita));
+  cd = fopen("Receitas.dat", "rb");
+  if (cd == NULL) {
+    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+    printf("Não é possível continuar este programa...\n");
+    exit(1);
+  }
+  while(!feof(cd)) {
+    fread(rec, sizeof(Receita), 1, cd);
+    if (strcmp(rec->nome, nome) == 0) {
+      fclose(cd);
+      return rec;
+    }
+  }
+  fclose(cd);
+  return NULL;
+}
+
+
+//exibe conteudo do arquivo
+void exibirReceita(Receita* rec) {
+
+  if (rec == NULL) {
+    printf("\n Nao Existem Receitas para Exibir \n");
+  } else {
+    printf("\n= = = Receita = = =\n");
+	printf("Codigo da Receita: %d\n", rec->codReceita);
+    printf("Nome: %s\n", rec->nome);
+    printf("Origem: %s\n", rec->origem);
+    printf("Obtencao: %s\n", rec->obtencao);
+    printf("Tempo de Preparo: %s minutos\n", rec->tempo);
+    printf("Dificuldade de Preparo: %s\n", rec->dificuldade);
+	printf("Status da Receita: %c", rec->status);
+  }
+  printf("\n\nTecle ENTER para continuar!\n\n");
+  getchar();
+}
+
 //Função para Encontrar Receitas
 
 void encontrarReceitas(void) {
     system("cls");
+	Receita* rec;
 	char nome[50];
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -191,23 +219,15 @@ void encontrarReceitas(void) {
 	printf("**           Digite o nome da Receitas:                                  **\n");	
 	printf("             ");
 	scanf("%[^\n]", nome);
+	rec = buscarReceita(nome);
 	getchar();
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 	system("cls");
-	printf("\n");
-	printf("Nome da Receita : %s",&nome);
-	printf("\n");
-	printf("Ingredientes :");
-	printf("\n");
-	printf("Modo de Preparo :");
-	printf("\n");
-	printf("Origem :");
-	printf("\n");
-	printf("Local de Obtencao :");
-	printf("\n");
+	exibirReceita(rec);
+	free(rec);
 	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
@@ -275,7 +295,6 @@ void verReceitas(void) {
 	printf("**           --------------   Ver Receitas  ----------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           |Nome da Receita|                                           **\n");
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");

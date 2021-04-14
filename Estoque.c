@@ -1,11 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
-
-struct estoque {
-	char item[20];
-	char quantidade[50];
-	char preco[20];
-	
-};
+#include "Estoque.h"
 
 typedef struct estoque Estoque;
 //Função para mostrar o menu do Estoque
@@ -40,9 +37,6 @@ char menuEstoque(void) {
 void adicionarEstoque(void) {
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
-	char quant[12];
-	char saida[12];
-	char medida[10];
 
     system("cls");
 	printf("\n");
@@ -53,32 +47,32 @@ void adicionarEstoque(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("             Item:  ");
-	scanf("%20[^\n]", est->item);
+	scanf("%[^\n]", est->item);
 	getchar();
 	printf("             Quantidade:   ");
 	do{
-		scanf("%s",quant);
+		scanf("%[^\n]",est->quantidade);
 		getchar();
-		if(!entradaInt(quant)){
+		if(!entradaInt(est->quantidade)){
 			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
 		}
-	}while(!entradaInt(quant));
+	}while(!entradaInt(est->quantidade));
 	printf("	     Entre com a medida:(kg,litro,g,unidade): ");
 	do{
-		scanf("%[^\n]",medida);
+		scanf("%[^\n]",est->medida);
 		getchar();
-		if(!entradaMedida(medida)){
+		if(!entradaMedida(est->medida)){
 			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
 		}
-	}while(!entradaMedida(medida));
+	}while(!entradaMedida(est->medida));
 	printf("             Valor Gasto R$(00.00):    ");
 	do{
-		scanf("%s",saida);
+		scanf("%[^\n]",est->preco);
 		getchar();
-		if(!entradaFinanca(saida)){
+		if(!entradaFinanca(est->preco)){
 			printf("	   Entrada Invalida!\n	     Digite NovamenteR$(00.00): R$ ");
 		}
-	}while(!entradaFinanca(saida));
+	}while(!entradaFinanca(est->preco));
 	printf("**                                                                       **\n");	
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -90,6 +84,8 @@ void adicionarEstoque(void) {
 //Função para Remover Estoque
 void removerEstoque(void) {
     system("cls");
+	Estoque* est;
+	est = (Estoque*)malloc(sizeof(Estoque));
 	char item[50];
 	char quant[12];
 	char medida[10];
@@ -101,24 +97,24 @@ void removerEstoque(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("             Item:  ");
-	scanf("%[^\n]", item);
+	scanf("%[^\n]", est->item);
 	getchar();
 	printf("**           Quantidade: ");
 	do{
-		scanf("%s",quant);
+		scanf("%[^\n]",est->quantidade);
 		getchar();
-		if(!entradaInt(quant)){
+		if(!entradaInt(est->quantidade)){
 			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
 		}
-	}while(!entradaInt(quant));
+	}while(!entradaInt(est->quantidade));
 	printf("	     Entre com a medida:(kg,litro,g,unidade): ");
 	do{
-		scanf("%[^\n]",medida);
+		scanf("%[^\n]",est->medida);
 		getchar();
-		if(!entradaMedida(medida)){
+		if(!entradaMedida(est->medida)){
 			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
 		}
-	}while(!entradaMedida(medida));
+	}while(!entradaMedida(est->medida));
 	
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
@@ -131,6 +127,7 @@ void removerEstoque(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	free(est);
 }
 
 //Função para ver o que tem no Estoque
