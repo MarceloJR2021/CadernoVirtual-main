@@ -17,6 +17,7 @@ struct ingredientes {
 struct receitas {
 	char codReceita[4];
 	char nome[50];
+	char preparo[200];
 	char origem[20];
 	char obtencao[30];
 	char tempo[6];
@@ -37,6 +38,7 @@ typedef struct preparo Preparo;
 
 Ingredientes* telaPreencherIngredientes(void);
 Receita* telaPreencherReceita(void);
+Preparo* telaPreencherPreparo(void);
 void gravarReceita(Receita*);
 void gravarIngredientes(Ingredientes*);
 void gravarPreparo(Preparo*);

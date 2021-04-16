@@ -43,13 +43,19 @@ char menuReceitas(void) {
 //Função para adicionar Receitas
 void CadastrarReceitas(void) {
 	Receita* rec;
+	Ingredientes* ing;
 	rec = telaPreencherReceita();
+	ing = telaPreencherIngredientes();
+	strcpy(ing->codReceita,rec->codReceita);
 	gravarReceita(rec);
+	gravarIngredientes(ing);
 	free(rec);
+	free(ing);
 }
 
 //Tela preencher Ingredientes
 Ingredientes* telaPreencherIngredientes(void){
+	system("cls");
 	Ingredientes* ing;
 	char escolha[2];
 	int cont = 0;
@@ -87,6 +93,27 @@ Ingredientes* telaPreencherIngredientes(void){
 	
 }
 
+//Preencher Preparo da Receita
+Preparo* telaPreencherPreparo(void){
+	Preparo* prep;
+	prep = (Preparo*) malloc(sizeof(Preparo));
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("**                                                                       **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**           ------------  Cadastrar Preparo  --------------             **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**                                                                       **\n");
+	printf("\n");
+	printf("           Entre com o Preparo da Receita: ");
+	scanf("%[^\n]", prep->preparo);
+	getchar();
+	system("cls");
+	return prep;
+
+}
+
 
 
 //Preencher Receita
@@ -109,6 +136,11 @@ Receita* telaPreencherReceita(void){
 	system("cls");
 	printf("           Nome da Receita: ");
 	scanf("%[^\n]", rec->nome);
+	getchar();
+	system("cls");
+	printf("\n");
+	printf("           Preparo: ");
+	scanf("%[^\n]", rec->preparo);
 	getchar();
 	system("cls");
 	printf("\n");
@@ -185,12 +217,15 @@ void gravarIngredientes(Ingredientes* ing){
 void regravarReceita(Receita* rec) {
 	FILE* cd;
 	Receita* nrec;
+
 	nrec = (Receita*) malloc(sizeof(Receita));
 	cd = fopen("Receitas.dat", "r+b");
 	if (cd == NULL) {
-		printf("Erro na abertura do arquivo!");
+		printf("Arquivo nao encontrado!");
 	}
+	// while(!feof(fp)) {
 	while(fread(nrec, sizeof(Receita), 1, cd)) {
+		//fread(alnLido, sizeof(Aluno), 1, fp);
 		if (strcmp(nrec->codReceita, rec->codReceita) == 0) {
 			fseek(cd, -1*sizeof(Receita), SEEK_CUR);
         	fwrite(rec, sizeof(Receita), 1, cd);
@@ -226,24 +261,23 @@ Receita* buscarReceita(char* cod) {
 
 //busca de preparo da receita
 Preparo* buscaPreparo(char* cod){
-	FILE* pr;
+	FILE* cd;
 	Preparo* prep;
 	prep = (Preparo*) malloc(sizeof(Preparo));
-	pr = fopen("Preparo.dat","ab");
-	if (pr == NULL) {
+	cd = fopen("Preparo.dat", "rb");
+	if (cd == NULL) {
 		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
 		printf("Não é possível continuar este programa...\n");
 		exit(1);
 	}
-	while(!feof(pr)) {
-		fread(prep, sizeof(Preparo), 1, pr);
+	while(!feof(cd)) {
+		fread(prep, sizeof(Preparo), 1, cd);
 		if (strcmp(prep->codReceita, cod) == 0) {
-		fclose(pr);
+		fclose(cd);
 		return prep;
 		}
 	}
-	fclose(pr);
-	return NULL;
+	fclose(cd);	
 }
 
 //busca de Ingredientes da Receita
@@ -277,6 +311,7 @@ void exibirReceita(Receita* rec) {
     printf("\n= = = Receita = = =\n");
 	printf("Codigo da Receita: %s\n", rec->codReceita);
     printf("Nome: %s\n", rec->nome);
+	printf("Preparo :  %s \n",rec->preparo);
     printf("Origem: %s\n", rec->origem);
     printf("Obtencao: %s\n", rec->obtencao);
     printf("Tempo de Preparo: %s minutos\n", rec->tempo);
@@ -292,6 +327,8 @@ void exibirReceita(Receita* rec) {
 void encontrarReceitas(void) {
     system("cls");
 	Receita* rec;
+	Preparo* prep;
+	Ingredientes* ing;
 	char cod[4];
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -333,6 +370,7 @@ void atualizarReceitas(void) {
 	scanf("%[^\n]", cod);
 	getchar();
 	rec = buscarReceita(cod);
+	rec = telaPreencherReceita();
 	strcpy(rec->codReceita, cod);
 	regravarReceita(rec);
 	printf("**                                                                       **\n");

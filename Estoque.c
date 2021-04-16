@@ -32,9 +32,17 @@ char menuEstoque(void) {
 	return op;
 }
 
-//Função para adicionar Estoque
+//Função para adicionar o estoque
+void adicionarEstoque(void){
+	Estoque* est;
+	est = telaAdicionarEstoque();
+	gravarEstoque(est);
+	free(est);
+}
 
-void adicionarEstoque(void) {
+//Tela para adicionar Estoque
+
+Estoque* telaAdicionarEstoque(void) {
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
 
@@ -73,12 +81,93 @@ void adicionarEstoque(void) {
 			printf("	   Entrada Invalida!\n	     Digite NovamenteR$(00.00): R$ ");
 		}
 	}while(!entradaFinanca(est->preco));
+	est->status = 'a';
 	printf("**                                                                       **\n");	
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
-	free(est);
+	return est;
+}
+
+//Gravar Estoque em Arquivo
+void gravarEstoque(Estoque* est){
+	FILE* cd;
+	cd = fopen("Estoque.dat","ab");
+	if (cd == NULL) {
+		cd = fopen("Estoque.dat","wb");
+  	}
+  	fwrite(est, sizeof(Estoque), 1, cd);
+  	fclose(cd);
+}
+
+void regravarEstoque(Estoque* est) {
+	FILE* cd;
+	Estoque* nest;
+	nest = (Estoque*) malloc(sizeof(Estoque));
+	cd = fopen("Estoque.dat", "r+b");
+	if (cd == NULL) {
+		printf("Arquivo nao encontrado!");
+	}
+	// while(!feof(fp)) {
+	while(fread(nest, sizeof(Estoque), 1, cd)) {
+		if (strcmp(nest->item, est->item) == 0) {
+			fseek(cd, -1*sizeof(Estoque), SEEK_CUR);
+        	fwrite(est, sizeof(Estoque), 1, cd);
+			break;
+		}
+	}
+	fclose(cd);
+	free(nest);
+}
+
+
+Estoque* procurarEstoque(char* nome) {
+	FILE* cd;
+	Estoque* est;
+	est = (Estoque*) malloc(sizeof(Estoque));
+	cd = fopen("Estoque.dat", "rb");
+	if (cd == NULL) {
+		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+		printf("Não é possível continuar este programa...\n");
+		exit(1);
+	}
+	while(!feof(cd)) {
+		fread(est, sizeof(Estoque), 1, cd);
+		if (strcmp(est->item, nome) == 0 && est->status == 'a') {
+		fclose(cd);
+		return est;
+		}
+		else {
+			return NULL;
+		}
+	}
+	fclose(cd);	
+}
+
+
+
+//Função para ver o que tem no Estoque
+void exibirEstoque(void) {
+    system("cls");
+	Estoque* est;
+	char nome[15];
+	printf("\n");
+	printf(" -----------------------------------------------  \n");
+	printf(" -----------  Procurar no Estoque  -------------  \n");
+	printf(" -----------------------------------------------  \n");
+	printf("                                                  \n");
+	printf("Entre com o nome do Item para encontrar:");
+	scanf("%[^\n]", nome);
+	est = procurarEstoque(nome);
+	if (est != NULL){
+		printf("       %s - %s - %s	 \n",est->item,est->quantidade,est->medida);
+	}
+	getchar();		
+	printf("\n");
+	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
 }
 
 //Função para Remover Estoque
@@ -86,9 +175,7 @@ void removerEstoque(void) {
     system("cls");
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
-	char item[50];
-	char quant[12];
-	char medida[10];
+	char item[15];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -97,25 +184,16 @@ void removerEstoque(void) {
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("             Item:  ");
-	scanf("%[^\n]", est->item);
+	scanf("%[^\n]", item);
 	getchar();
-	printf("**           Quantidade: ");
-	do{
-		scanf("%[^\n]",est->quantidade);
-		getchar();
-		if(!entradaInt(est->quantidade)){
-			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
-		}
-	}while(!entradaInt(est->quantidade));
-	printf("	     Entre com a medida:(kg,litro,g,unidade): ");
-	do{
-		scanf("%[^\n]",est->medida);
-		getchar();
-		if(!entradaMedida(est->medida)){
-			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
-		}
-	}while(!entradaMedida(est->medida));
-	
+	est = procurarEstoque(item);
+	if (est == NULL) {
+    	printf("\n\n Item não encontrado!\n\n");
+  	} else {
+		  est->status = 'd';
+		  regravarEstoque(est);
+		  free(est);
+	}
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -127,26 +205,5 @@ void removerEstoque(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
-	free(est);
 }
 
-//Função para ver o que tem no Estoque
-void verEstoque(void) {
-    system("cls");
-	printf("\n");
-	printf("******************************************************\n");
-	printf("**                                  			    **\n");
-	printf("** -----------------------------------------------  **\n");
-	printf("** ---------------   Ver Estoque  ----------------  **\n");
-	printf("** -----------------------------------------------  **\n");
-	printf("**                                                  **\n");
-	printf("             Nome |   Quantidade |  Medida        \n");
-	printf("                  |              |			      \n");
-	printf("                  |              |			      \n");
-	printf("                  |              |		          \n");
-	printf("                  |              |		          \n");			
-	printf("******************************************************\n");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-}

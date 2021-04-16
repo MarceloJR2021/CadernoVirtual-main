@@ -69,7 +69,7 @@ int main(void) {
 			break; 
 
 			case '3' :
-			verEstoque();
+			exibirEstoque();
 			break;
 
 			case '0' :
