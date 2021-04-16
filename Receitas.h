@@ -8,14 +8,14 @@ char menuReceitas(void);
 int valQuantidade(int);
 
 struct ingredientes {
-	int codReceita;
-	char ingredientes[50];
-	char medida[12];
-	char quantidade[50];
+	char codReceita[4];
+	char ingredientes[4];
+	char medida[3];
+	char quantidade[4];
 };
 
 struct receitas {
-	int codReceita;
+	char codReceita[4];
 	char nome[50];
 	char origem[20];
 	char obtencao[30];
@@ -26,8 +26,8 @@ struct receitas {
 };
 
 struct preparo {
-	int codReceita;
-	char preparo[200];
+	char codReceita[4];
+	char preparo[100];
 
 };
 
@@ -35,6 +35,13 @@ typedef struct receitas Receita;
 typedef struct ingredientes Ingredientes;
 typedef struct preparo Preparo;
 
+Ingredientes* telaPreencherIngredientes(void);
+Receita* telaPreencherReceita(void);
 void gravarReceita(Receita*);
+void gravarIngredientes(Ingredientes*);
+void gravarPreparo(Preparo*);
+void regravarReceita(Receita*);
 void exibirReceita(Receita*);
 Receita* buscarReceita(char*); 
+Preparo* buscaPreparo(char*);
+Ingredientes* buscaIngredientes(char*);

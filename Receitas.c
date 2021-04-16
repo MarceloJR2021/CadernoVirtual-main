@@ -43,29 +43,17 @@ char menuReceitas(void) {
 //Função para adicionar Receitas
 void CadastrarReceitas(void) {
 	Receita* rec;
-	Preparo* prep;
+	rec = telaPreencherReceita();
+	gravarReceita(rec);
+	free(rec);
+}
+
+//Tela preencher Ingredientes
+Ingredientes* telaPreencherIngredientes(void){
 	Ingredientes* ing;
-	rec = (Receita*) malloc(sizeof(Receita));
-	prep = (Preparo*) malloc(sizeof(Preparo));
-	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
 	char escolha[2];
 	int cont = 0;
-
-    system("cls");
-	printf("\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           ------------  Cadastrar Receitas  -------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	printf("\n");
-	rec->codReceita = 0;
-	printf("           Nome da Receita: ");
-	scanf("%[^\n]", rec->nome);
-	getchar();
-	system("cls");
-	printf("\n");
+	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
 	printf("***************************************************************************\n");
 	printf("           Ingredientes: \n");
 	do{
@@ -95,13 +83,32 @@ void CadastrarReceitas(void) {
 		printf("\n");
 		cont++;
 	}while(strcmp(escolha,"S") == 0 || strcmp(escolha,"s") == 0);
-		
+	return ing;
 	
-	system("cls");
+}
+
+
+
+//Preencher Receita
+Receita* telaPreencherReceita(void){
+	Receita* rec;
+	rec = (Receita*) malloc(sizeof(Receita));
+
+    system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
-    printf("           Modo de Preparo: ");
-	scanf("%[^\n]", prep->preparo);
+	printf("**                                                                       **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**           ------------  Cadastrar Receitas  -------------             **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**                                                                       **\n");
+	printf("\n");
+	printf("           Codigo da Receita: ");
+	scanf("%[^\n]", rec->codReceita);
+	getchar();
+	system("cls");
+	printf("           Nome da Receita: ");
+	scanf("%[^\n]", rec->nome);
 	getchar();
 	system("cls");
 	printf("\n");
@@ -138,13 +145,8 @@ void CadastrarReceitas(void) {
 	rec->status = 'a';
 	printf("***************************************************************************\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	gravarReceita(rec);
-	getchar();
-	free(rec);
-	free(ing);
-	free(prep);
+	return rec;
 }
-
 
 
 //Gravar Receita em arquivo
@@ -158,31 +160,113 @@ void gravarReceita(Receita* rec){
   fclose(cd);
 }
 
+//Gravar Preparo em arquivo
+void gravarPreparo(Preparo* prep){
+	FILE* pr;
+	pr = fopen("Preparo.dat","ab");
+	if (pr == NULL) {
+		pr = fopen("Preparo.dat","wb");
+  }
+  fwrite(prep, sizeof(Preparo), 1, pr);
+  fclose(pr);
+}
+
+//Gravar Ingredientes em arquivo
+void gravarIngredientes(Ingredientes* ing){
+	FILE* in;
+	in = fopen("Ingredientes.dat","ab");
+	if (in == NULL) {
+		in = fopen("Ingredientes.dat","wb");
+  }
+  fwrite(ing, sizeof(Ingredientes), 1, in);
+  fclose(in);
+}
+
+void regravarReceita(Receita* rec) {
+	FILE* cd;
+	Receita* nrec;
+	nrec = (Receita*) malloc(sizeof(Receita));
+	cd = fopen("Receitas.dat", "r+b");
+	if (cd == NULL) {
+		printf("Erro na abertura do arquivo!");
+	}
+	while(fread(nrec, sizeof(Receita), 1, cd)) {
+		if (strcmp(nrec->codReceita, rec->codReceita) == 0) {
+			fseek(cd, -1*sizeof(Receita), SEEK_CUR);
+        	fwrite(rec, sizeof(Receita), 1, cd);
+			break;
+		}
+	}
+	fclose(cd);
+	free(nrec);
+}
 
 
 //Buscar Receita
-Receita* buscarReceita(char* nome) {
-  FILE* cd;
-  Receita* rec;
-
-  rec = (Receita*) malloc(sizeof(Receita));
-  cd = fopen("Receitas.dat", "rb");
-  if (cd == NULL) {
-    printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-    printf("Não é possível continuar este programa...\n");
-    exit(1);
-  }
-  while(!feof(cd)) {
-    fread(rec, sizeof(Receita), 1, cd);
-    if (strcmp(rec->nome, nome) == 0) {
-      fclose(cd);
-      return rec;
-    }
-  }
-  fclose(cd);
-  return NULL;
+Receita* buscarReceita(char* cod) {
+	FILE* cd;
+	Receita* rec;
+	rec = (Receita*) malloc(sizeof(Receita));
+	cd = fopen("Receitas.dat", "rb");
+	if (cd == NULL) {
+		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+		printf("Não é possível continuar este programa...\n");
+		exit(1);
+	}
+	while(!feof(cd)) {
+		fread(rec, sizeof(Receita), 1, cd);
+		if (strcmp(rec->codReceita, cod) == 0 && rec->status == 'a') {
+		fclose(cd);
+		return rec;
+		}
+	}
+	fclose(cd);	
 }
 
+
+//busca de preparo da receita
+Preparo* buscaPreparo(char* cod){
+	FILE* pr;
+	Preparo* prep;
+	prep = (Preparo*) malloc(sizeof(Preparo));
+	pr = fopen("Preparo.dat","ab");
+	if (pr == NULL) {
+		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+		printf("Não é possível continuar este programa...\n");
+		exit(1);
+	}
+	while(!feof(pr)) {
+		fread(prep, sizeof(Preparo), 1, pr);
+		if (strcmp(prep->codReceita, cod) == 0) {
+		fclose(pr);
+		return prep;
+		}
+	}
+	fclose(pr);
+	return NULL;
+}
+
+//busca de Ingredientes da Receita
+Ingredientes* buscaIngredientes(char* cod){
+	FILE* in;
+	Ingredientes* ing;
+	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
+	in = fopen("Ingredientes.dat","ab");
+	if (in == NULL) {
+		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
+		printf("Não é possível continuar este programa...\n");
+		exit(1);
+	}
+	while(!feof(in)) {
+		fread(ing, sizeof(Ingredientes), 1, in);
+		if (strcmp(ing->codReceita, cod) == 0) {
+		fclose(in);
+		return ing;
+		}
+	}
+	fclose(in);
+
+}
 
 //exibe conteudo do arquivo
 void exibirReceita(Receita* rec) {
@@ -191,7 +275,7 @@ void exibirReceita(Receita* rec) {
     printf("\n Nao Existem Receitas para Exibir \n");
   } else {
     printf("\n= = = Receita = = =\n");
-	printf("Codigo da Receita: %d\n", rec->codReceita);
+	printf("Codigo da Receita: %s\n", rec->codReceita);
     printf("Nome: %s\n", rec->nome);
     printf("Origem: %s\n", rec->origem);
     printf("Obtencao: %s\n", rec->obtencao);
@@ -208,7 +292,7 @@ void exibirReceita(Receita* rec) {
 void encontrarReceitas(void) {
     system("cls");
 	Receita* rec;
-	char nome[50];
+	char cod[4];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -216,10 +300,10 @@ void encontrarReceitas(void) {
 	printf("**           ------------- Encontrar Receita   -------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Digite o nome da Receitas:                                  **\n");	
+	printf("**           Digite o Codigo da Receitas:                                  **\n");	
 	printf("             ");
-	scanf("%[^\n]", nome);
-	rec = buscarReceita(nome);
+	scanf("%[^\n]", cod);
+	rec = buscarReceita(cod);
 	getchar();
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -227,7 +311,6 @@ void encontrarReceitas(void) {
 	getchar();
 	system("cls");
 	exibirReceita(rec);
-	free(rec);
 	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
@@ -236,7 +319,8 @@ void encontrarReceitas(void) {
 
 void atualizarReceitas(void) {
     system("cls");
-	char nome[50];
+	Receita* rec;
+	char cod[4];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -244,14 +328,21 @@ void atualizarReceitas(void) {
 	printf("**           -------------- Atualizar Receita --------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Nome da Receita para Atualizar:                             **\n");
+	printf("**           Codigo da Receita para Atualizar:                           **\n");
 	printf("             ");
-	scanf("%[^\n]", nome);
+	scanf("%[^\n]", cod);
 	getchar();
+	rec = buscarReceita(cod);
+	strcpy(rec->codReceita, cod);
+	regravarReceita(rec);
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
+	system("cls");
 	printf("\n");
+	printf("				RECEITA ATUALIZADA!!");
+	printf("\n");
+	free(rec);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 }
@@ -260,7 +351,9 @@ void atualizarReceitas(void) {
 
 void deletarReceitas(void) {
     system("cls");
-	char nome[50];
+	Receita* rec;
+	rec = (Receita*) malloc(sizeof(Receita));
+	char cod[4];
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -270,8 +363,16 @@ void deletarReceitas(void) {
 	printf("**                                                                       **\n");
 	printf("**           Nome da Receita para Deletar:                               **\n");
 	printf("             ");
-	scanf("%[^\n]", nome);
+	scanf("%[^\n]", cod);
+	rec = buscarReceita(cod);
 	getchar();
+	if (rec == NULL) {
+    	printf("\n\nReceita não encontrada!\n\n");
+  	} else {
+		  rec->status = 'd';
+		  regravarReceita(rec);
+		  free(rec);
+	}
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -282,6 +383,7 @@ void deletarReceitas(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	free(rec);
 }
 
 //Função para Ver todos os nomes das Receitas 
