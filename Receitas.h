@@ -36,6 +36,8 @@ struct preparo {
 typedef struct receitas Receita;
 typedef struct ingredientes Ingredientes;
 typedef struct preparo Preparo;
+Ingredientes* ingr;
+
 
 Ingredientes* telaPreencherIngredientes(void);
 Receita* telaPreencherReceita(void);

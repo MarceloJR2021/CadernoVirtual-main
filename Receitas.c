@@ -104,6 +104,8 @@ Ingredientes* telaPreencherIngredientes(void){
 Preparo* telaPreencherPreparo(void){
 	Preparo* prep;
 	prep = (Preparo*) malloc(sizeof(Preparo));
+	char fim;
+	int i=0;
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -288,9 +290,7 @@ Receita* buscarReceita(char* cod) {
 	rec = (Receita*) malloc(sizeof(Receita));
 	cd = fopen("Receitas.dat", "rb");
 	if (cd == NULL) {
-		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-		printf("Não é possível continuar este programa...\n");
-		exit(1);
+		return NULL;
 	}
 	while(!feof(cd)) {
 		fread(rec, sizeof(Receita), 1, cd);
@@ -310,9 +310,7 @@ Preparo* buscaPreparo(char* cod){
 	prep = (Preparo*) malloc(sizeof(Preparo));
 	cd = fopen("Preparo.dat", "rb");
 	if (cd == NULL) {
-		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-		printf("Não é possível continuar este programa...\n");
-		exit(1);
+		return NULL;
 	}
 	while(!feof(cd)) {
 		fread(prep, sizeof(Preparo), 1, cd);
@@ -331,9 +329,7 @@ Ingredientes* buscaIngredientes(char* cod){
 	ing = (Ingredientes*) malloc(sizeof(Ingredientes));
 	cd = fopen("Ingredientes.dat", "rb");
 	if (cd == NULL) {
-		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-		printf("Não é possível continuar este programa...\n");
-		exit(1);
+		return NULL;
 	}
 	while(!feof(cd)) {
 		fread(ing, sizeof(Ingredientes), 1, cd);

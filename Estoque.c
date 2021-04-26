@@ -125,24 +125,34 @@ void regravarEstoque(Estoque* est) {
 Estoque* procurarEstoque(char* nome) {
 	FILE* cd;
 	Estoque* est;
+	int m;
+	int n;
+	int i;
+	char comp[20];
 	est = (Estoque*) malloc(sizeof(Estoque));
 	cd = fopen("Estoque.dat", "rb");
 	if (cd == NULL) {
-		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-		printf("Não é possível continuar este programa...\n");
-		exit(1);
+		return NULL;
 	}
 	while(!feof(cd)) {
 		fread(est, sizeof(Estoque), 1, cd);
-		if (strcmp(est->item, nome) == 0 && est->status == 'a') {
+		if(est)
+		strcpy(comp,est->item);
+		m = strlen(comp);
+    	for(i = 0;i < m;i++){
+        comp[i] = toupper(comp[i]);
+    	}
+		n = strlen(nome);
+    	for(i = 0;i < m;i++){
+        nome[i] = toupper(nome[i]);
+    	}
+		if (strcmp(comp, nome) == 0 && est->status == 'a') {
 		fclose(cd);
 		return est;
 		}
-		else {
-			return NULL;
-		}
 	}
 	fclose(cd);	
+	return NULL;
 }
 
 
@@ -159,11 +169,14 @@ void exibirEstoque(void) {
 	printf("                                                  \n");
 	printf("Entre com o nome do Item para encontrar:");
 	scanf("%[^\n]", nome);
+	getchar();
 	est = procurarEstoque(nome);
-	if (est != NULL){
+	if(est == NULL){
+		printf("Item nao encontrado!");
+	}
+	else{
 		printf("       %s - %s - %s	 \n",est->item,est->quantidade,est->medida);
 	}
-	getchar();		
 	printf("\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");

@@ -15,3 +15,5 @@ typedef struct financas Financas;
 Financas* telaAdicionarFinancas(void);
 void gravarFinanca(Financas*);
 void exibirFinancas(void);
+Financas* somaFinancas(Financas*);
+Financas* deletarFinancas(Financas*);
