@@ -135,7 +135,7 @@ void telaSobre(void) {
 	system("cls");
     printf("\n");
     printf("*****************************************************************************\n");
-    printf("**      Projeto Caderno Virtual de Receitas Culinarias                     **\n");
+    printf("**  Projeto Caderno Virtual de Receitas Culinarias                     **\n");
     printf("**      Desenvolvedor - Marcelo Jailson de Araujo Junior                   **\n");
     printf("**                                                                         **\n");
     printf("*****************************************************************************\n");

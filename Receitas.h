@@ -52,6 +52,7 @@ void exibirReceita(Receita*);
 void exibirIngredientes(Ingredientes*);
 void exibirPreparo(Preparo*);
 char telaescolha(void);
+char telaescolhaPesquisa(void);
 Receita* buscarReceita(char*); 
 Preparo* buscaPreparo(char*);
 Ingredientes* buscaIngredientes(char*);

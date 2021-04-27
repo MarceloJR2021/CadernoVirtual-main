@@ -115,13 +115,33 @@ Financas* deletarFinancas(Financas* fin){
 	float financaNova;
 	fi = (Financas*) malloc(sizeof(Financas));
 	fd = fopen("Financas.dat","rb");
+	if(fd == NULL){
+		return NULL;
+	}
 	if(fd != NULL){
 		fread(fi, sizeof(Financas), 1, fd);
 		financaArq = fi->financa;
 		financaNova = atof(fin->ultSaida);
-		sub = financaArq - financaNova;
-		fin->financa = sub;
-		strcpy(fin->ultEntrada,fi->ultEntrada);
+		if(financaNova <= financaArq){
+			sub = financaArq - financaNova;
+			fin->financa = sub;
+			strcpy(fin->ultEntrada,fi->ultEntrada);
+		}
+		if(financaNova > financaArq){
+			sub = financaNova - financaArq;
+			system("cls");
+			printf("\n");
+			printf("\n");
+			printf("		Sem financas suficiente para remover!\n");
+			printf("\n");
+			printf("		Faltam %.2f nas Financas!",sub);
+			printf("\n");
+			printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+			getchar();
+			fclose(fd);
+			free(fi);
+			return NULL;
+		}
 		fclose(fd);
 		free(fi);
 		return fin;
@@ -132,7 +152,7 @@ Financas* deletarFinancas(Financas* fin){
 //Gravar Financa em Arquivo
 void gravarFinanca(Financas* fin){
 	FILE* cd;
-	cd = fopen("Financas.dat","wb");
+	cd = fopen("Financas.dat","w+b");
  	fwrite(fin, sizeof(Financas), 1, cd);
 	fclose(cd);
 }
@@ -143,15 +163,13 @@ void exibirFinancas(void) {
 	Financas* fin;
 	fin = (Financas*) malloc(sizeof(Financas));
 	cd = fopen("Financas.dat", "rb");
-	fread(fin, sizeof(Financas), 1, cd);
-	if (cd == NULL) {
-		printf("Ops! Ocorreu um erro na abertura do arquivo!\n");
-		printf("Não é possível continuar este programa...\n");
-		exit(1);
+	if (cd == NULL){
+		printf("		Arquivo nao encontrado!");
 	}
-	printf("		Financa:  R$ %.2f \n", fin->financa);
-	printf("		ultEntrada:  R$ %s \n", fin->ultEntrada);
-	printf("		ultSaida:  R$ %s \n", fin->ultSaida);
+	if (cd != NULL) {
+		fread(fin, sizeof(Financas), 1, cd);
+		printf("		Financa:  R$ %.2f \n", fin->financa);
+	}
 	fclose(cd);
 	free(fin);
 		
@@ -179,18 +197,35 @@ void removerFinancas(void) {
 		}
 	}while(!entradaFinanca(fin->ultSaida));
 	fin = deletarFinancas(fin);
-	gravarFinanca(fin);
-	printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-	system("cls");
-	printf("\n");
-	printf("				Financa Removida!!");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
+	if (fin != NULL){
+		gravarFinanca(fin);
+		printf("**                                                                       **\n");
+		printf("***************************************************************************\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("				Financa Removida!!");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+		printf("\n");
+	}
+	if (fin == NULL){
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("				Arquivo de Financas nao Encontrado!!");
+		printf("\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+	}
 	free(fin);
 }
 

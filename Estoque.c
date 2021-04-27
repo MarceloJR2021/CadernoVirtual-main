@@ -5,6 +5,7 @@
 #include "Estoque.h"
 
 typedef struct estoque Estoque;
+typedef struct financas Financas;
 //Função para mostrar o menu do Estoque
 char menuEstoque(void) {
 	char op;
@@ -18,7 +19,7 @@ char menuEstoque(void) {
 	printf("**                                                                       **\n");
 	printf("**           1. Adicionar Estoque                                        **\n");
 	printf("**           2. Remover Estoque                                          **\n");
-	printf("**           3. Ver Estoque                                              **\n");
+	printf("**           3. Procurar Estoque                                         **\n");
 	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
@@ -35,13 +36,100 @@ char menuEstoque(void) {
 //Função para adicionar o estoque
 void adicionarEstoque(void){
 	Estoque* est;
+	Estoque* est2;
+	Financas* fin;
+	est2 = (Estoque*)malloc(sizeof(Estoque));
 	est = telaAdicionarEstoque();
-	gravarEstoque(est);
+	est2 = aberturaFinancas(est);
+	if(est2 != NULL){
+		gravarEstoque(est2);
+		fin = deletarFinancasest(est2);
+		gravarFinancaest(fin);
+	}
 	free(est);
+	free(est2);
+}
+
+//Gravar Financa do estoque em Arquivo
+void gravarFinancaest(Financas* fin){
+	FILE* cd;
+	cd = fopen("Financas.dat","wb");
+ 	fwrite(fin, sizeof(Financas), 1, cd);
+	fclose(cd);
+}
+
+//Gravar financa removida
+Financas* deletarFinancasest(Estoque* est){
+	Financas* fi;
+	Financas* fin;
+	FILE* fd;
+	float sub;
+	float financaArq;
+	float financaNova;
+	fi = (Financas*) malloc(sizeof(Financas));
+	fin = (Financas*) malloc(sizeof(Financas));
+	fd = fopen("Financas.dat","rb");
+	fread(fi, sizeof(Financas), 1, fd);
+	financaArq = fi->financa;
+	financaNova = atof(est->preco);
+	sub = financaArq - financaNova;
+	fin->financa = sub;
+	strcpy(fin->ultEntrada,fi->ultEntrada);
+	strcpy(fin->ultSaida,est->preco);
+	fclose(fd);
+	free(fi);
+	return fin;
+}
+
+
+
+
+//Abertura de Arquivo de Financas
+Estoque* aberturaFinancas(Estoque* est){
+	FILE* cd;
+	Financas* fin;
+	float financasNova;
+	fin = (Financas*) malloc(sizeof(Financas));
+	cd = fopen("Financas.dat", "rb");
+	if (cd == NULL){
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("	Sem Financas Para Adicionar Itens ao Estoque!");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+    	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+		return NULL;
+	}
+	if (cd != NULL) {
+		fread(fin, sizeof(Financas), 1, cd);
+		financasNova = atof(est->preco);
+		if(fin->financa <= financasNova){
+			system("cls");
+			printf("\n");
+			printf("\n");
+			printf("\n");
+			printf("	Financa Insuficiente Para Adicionar o Item ao Estoque!");
+			printf("\n");
+			printf("\n");
+			printf("\n");
+    		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+			getchar();
+			fclose(cd);
+			free(fin);
+			return NULL;
+		}
+	}
+	fclose(cd);
+	free(fin);
+	return est;
 }
 
 //Tela para adicionar Estoque
-
 Estoque* telaAdicionarEstoque(void) {
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
@@ -201,22 +289,24 @@ void removerEstoque(void) {
 	getchar();
 	est = procurarEstoque(item);
 	if (est == NULL) {
-    	printf("\n\n Item não encontrado!\n\n");
+    	printf("\n\n Item nao encontrado!\n\n");
+		printf("**                                                                       **\n");
+		printf("***************************************************************************\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
   	} else {
-		  est->status = 'd';
-		  regravarEstoque(est);
-		  free(est);
+		est->status = 'd';
+		regravarEstoque(est);
+		free(est);
+		system("cls");
+		printf("\n");
+		printf("				ITEM REMOVIDO DO ESTOQUE!!");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
 	}
-	printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-	system("cls");
-	printf("\n");
-	printf("				ITEM REMOVIDO DO ESTOQUE!!");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
+	
+	
 }
 

@@ -403,7 +403,7 @@ void encontrarReceitas(void) {
 	printf("**           ------------- Encontrar Receita   -------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Digite o Codigo da Receitas:                                  **\n");	
+	printf("**           Digite o Codigo da Receitas:                                **\n");	
 	printf("             ");
 	scanf("%[^\n]", cod);
 	rec = buscarReceita(cod);
@@ -446,6 +446,7 @@ void atualizarReceitas(void) {
 	prep = buscaPreparo(cod);
 	ing = buscaIngredientes(cod);
 	op = telaescolha();	
+	system("cls");
 	switch (op)
 	{
 		case '1' :
@@ -482,8 +483,7 @@ void atualizarReceitas(void) {
 		getchar();
 		system("cls");
 		break;
-		}
-
+	}
 	strcpy(rec->codReceita, cod);
 	strcpy(prep->codReceita, cod);
 	strcpy(ing->codReceita, cod);
@@ -534,7 +534,35 @@ char telaescolha(void) {
 	return op;
 }
 
-//Tela para Atualizar
+//Tela de escolha para Pesquisa
+char telaescolhaPesquisa(void) {
+	char op;
+    system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("**                                                                       **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**           -------------- PESQUISAR RECEITA --------------             **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**                                                                       **\n");
+	printf("**           1. CODIGO                                                   **\n");
+	printf("**           2. NOME                                                     **\n");
+	printf("**           3. OBTENCAO                                                 **\n");
+    printf("**           4. TEMPO DE PREPARO                                         **\n");
+	printf("**           5. DIFICULDADE                                              **\n");
+	printf("**           6. ORIGEM                                                   **\n");
+	printf("**           7. INGREDIENTES                                             **\n");
+	printf("**                                                                       **\n");
+	printf("             Escolha a opcao desejada:  ");
+	scanf("%c", &op);
+	getchar();
+	printf("**                                                                       **\n");
+	printf("***************************************************************************\n");
+	printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+	return op;
+}
 
 
 //Função para Deletar Receitas
