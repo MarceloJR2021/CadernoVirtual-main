@@ -49,7 +49,7 @@ void regravarReceita(Receita*);
 void regravarPreparo(Preparo*);
 void regravarIngredienetes(Ingredientes*);
 void exibirReceita(Receita*);
-void exibirIngredientes(Ingredientes*);
+void exibirIngredientes(char*);
 void exibirPreparo(Preparo*);
 char telaescolha(void);
 char telaescolhaPesquisa(void);
