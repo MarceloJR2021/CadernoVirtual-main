@@ -4,6 +4,7 @@
 #include "Validacoes.h"
 #include <ctype.h>
 #include "Receitas.h"
+#include "Estoque.h"
 
 
 typedef struct receitas Receita;
@@ -130,6 +131,8 @@ Preparo* telaPreencherPreparo(void){
 Receita* telaPreencherReceita(void){
 	Receita* rec;
 	rec = (Receita*) malloc(sizeof(Receita));
+	char escolha[2];
+	int m,n;
 
     system("cls");
 	printf("\n");
@@ -141,27 +144,66 @@ Receita* telaPreencherReceita(void){
 	printf("**                                                                       **\n");
 	printf("\n");
 	printf("           Codigo da Receita(Ex:A1,B2,C3..): ");
-	scanf("%[^\n]", rec->codReceita);
-	getchar();
+	do{
+		strcpy(rec->codReceita,"");
+		scanf("%[^\n]", rec->codReceita);
+		getchar();
+		m = strlen(rec->codReceita);
+		printf("\n");
+		if(m == 0){
+			system("cls");
+			printf("\n");
+			printf("	Nenhuma Entrada!\n	Entre Novamente(Ex:A1,B2,C3..):");
+		}
+	}while(m == 0);
 	system("cls");
-	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Nome da Receita: ");
-	scanf("%[^\n]", rec->nome);
-	getchar();
+	do{
+		strcpy(rec->nome,"");
+		scanf("%[^\n]", rec->nome);
+		getchar();
+		m = strlen(rec->nome);
+		printf("\n");
+		if(m == 0){
+			system("cls");
+			printf("\n");
+			printf("	Entre com algum Nome:");
+		}
+	}while(m == 0);
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Origem da Receita(Pais ou Regiao): ");
-	scanf("%[^\n]",rec->origem);
-	getchar();
+	do{
+		strcpy(rec->origem,"");
+		scanf("%[^\n]",rec->origem);
+		getchar();
+		m = strlen(rec->origem);
+		printf("\n");
+		if(m == 0){
+			system("cls");
+			printf("\n");
+			printf("	Entre com alguma Origem:");
+		}
+		
+	}while(m == 0);
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Local de Obtencao da Receita(Site,Livro,Revista): ");
-	scanf("%[^\n]",rec->obtencao);
-	getchar();
-	printf("\n");
+	do{
+		strcpy(rec->obtencao,"");
+		scanf("%[^\n]",rec->obtencao);
+		getchar();
+		m = strlen(rec->obtencao);
+		printf("\n");
+		if(m == 0){
+			system("cls");
+			printf("\n");
+			printf("	Entre com algum Local de Obtencao da Receita:");
+		}
+	}while(m == 0);
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -178,8 +220,15 @@ Receita* telaPreencherReceita(void){
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("           Dificuldade de preparo,primeira letra(F[facil],M[medio] OU D[dificil]): ");
-	scanf("%[^\n]",rec->dificuldade);
-	getchar();
+	do{
+		scanf("%[^\n]",rec->dificuldade);
+		getchar();
+		strcpy(escolha,rec->dificuldade);
+		if(strcmp(escolha,"F") != 0 && strcmp(escolha,"M") != 0 && strcmp(escolha,"D") != 0){
+			printf("\n");
+			printf("	Entrada Invalida!\n	Entre Novamente(F,M ou D):");
+		}
+	}while(strcmp(escolha,"F") != 0 && strcmp(escolha,"M") != 0 && strcmp(escolha,"D") != 0);
 	printf("\n");
 	rec->status = 'a';
 	printf("***************************************************************************\n");
@@ -265,22 +314,21 @@ void regravarPreparo(Preparo* prep) {
 }
 
 //Regravar Ingredientes
-void regravarIngredienetes(Ingredientes* ing) {
+void regravarIngredientes(Ingredientes* ing) {
 	FILE* cd;
 	Ingredientes* ning;
-
 	ning = (Ingredientes*) malloc(sizeof(Ingredientes));
 	cd = fopen("Ingredientes.dat", "r+b");
 	if (cd == NULL) {
 		printf("Arquivo nao encontrado!");
 	}
 	while(fread(ning, sizeof(Ingredientes), 1, cd)) {
-		if (strcmp(ning->codReceita, ing->codReceita) == 0) {
-			fseek(cd, -1*sizeof(Ingredientes), SEEK_CUR);
-        	fwrite(ing, sizeof(Ingredientes), 1, cd);
-			break;
+			if (strcmp(ning->codReceita, ing->codReceita) == 0) {
+				fseek(cd, -1*sizeof(Ingredientes), SEEK_CUR);
+				fwrite(ing, sizeof(Ingredientes), 1, cd);
+				break;
+			}
 		}
-	}
 	fclose(cd);
 	free(ning);
 }
@@ -303,6 +351,7 @@ Receita* buscarReceita(char* cod) {
 		}
 	}
 	fclose(cd);	
+	return NULL;
 }
 
 
@@ -323,6 +372,7 @@ Preparo* buscaPreparo(char* cod){
 		}
 	}
 	fclose(cd);	
+	return NULL;
 }
 
 //busca de Ingredientes da Receita
@@ -342,6 +392,7 @@ Ingredientes* buscaIngredientes(char* cod){
 		}
 	}
 	fclose(cd);	
+	return NULL;
 }
 
 //exibe conteudo do arquivo
@@ -368,6 +419,7 @@ void exibirPreparo(Preparo* prep){
   } else {
     printf("\n= = = Preparo = = =\n");
 	printf("Preparo :  %s \n",prep->preparo);
+	printf("\n= = = Ingredientes da Receita = = =\n");
   }
 }
 
@@ -380,14 +432,25 @@ void exibirIngredientes(char* cod){
 	if (cd == NULL) {
 		printf("Arquivo de ingredientes nao encontrado!");
 	}
-	printf("\n= = = Ingredientes da Receita = = =\n");
 	while(!feof(cd)) {
 		fread(ing, sizeof(Ingredientes), 1, cd);
 		if (ing == NULL) {
 				printf("\n Nao Existem Ingredientes para Exibir \n");
 		}
-		if (strcmp(ing->codReceita, cod) == 0 && ing->status == 'a' && !feof(cd)) {			
+		if(strcmp(ing->codReceita, cod) == 0 && ing->status == 'd'){
+			printf("\n Nao Existem Ingredientes para Exibir \n");
+			fclose(cd);	
+			free(ing);
+			break;
+		}
+		if(strcmp(ing->codReceita, cod) == 0 && ing->status == 'a' && !feof(cd)) {			
 			printf("Item :  %s  - %s  - %s\n",ing->ingredientes,ing->quantidade,ing->medida);
+			if (vernoEstoque(ing)){
+				printf("	NAO Contem no Estoque!\n");
+			}
+			else{
+				printf("	Contem no Estoque!\n");
+			}
 		}
 	}
 	fclose(cd);	
@@ -454,40 +517,67 @@ void atualizarReceitas(void) {
 	rec = buscarReceita(cod);
 	prep = buscaPreparo(cod);
 	ing = buscaIngredientes(cod);
+	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
 	op = telaescolha();	
 	system("cls");
 	switch (op)
 	{
 		case '1' :
-		printf("Entre com o novo nome:");
+		printf("\n");
+		printf("\n");
+		printf("	Nome:%s\n\n",rec->nome);
+		printf("	Entre com o novo nome:");
 		scanf("%[^\n]", rec->nome);
 		getchar();
 		system("cls");
 		break;
 
 		case '2' :
-		printf("Entre com a Origem:");
+		printf("\n");
+		printf("\n");
+		printf("	Origem:%s\n\n",rec->origem);
+		printf("	Entre com a Origem:");
 		scanf("%[^\n]", rec->origem);
 		getchar();
 		system("cls");
 		break; 
 
 		case '3' :
-		printf("Entre com a Obtencao:");
+		printf("\n");
+		printf("\n");
+		printf("	Obtencao:%s\n",rec->obtencao);
+		printf("	Entre com a Obtencao:");
 		scanf("%[^\n]", rec->obtencao);
 		getchar();
 		system("cls");
 		break;
 
 		case '4' :
-		printf("Entre com o tempo de preparo:");
+		printf("\n");
+		printf("\n");
+		printf("	Tempo de Preparo:%s\n\n",rec->tempo);
+		printf("	Entre com o tempo de preparo:");
 		scanf("%[^\n]", rec->tempo);
 		getchar();
 		system("cls");
 		break;
 
 		case '5' :
-		printf("Entre com a dificuldade:");
+		printf("\n");
+		printf("\n");
+		printf("	Dificuldade de Preparo:%s\n\n",rec->dificuldade);
+		printf("	Entre com a dificuldade de Preparo:");
+		scanf("%[^\n]", rec->dificuldade);
+		getchar();
+		system("cls");
+		break;
+
+		case '6' :
+		printf("\n");
+		printf("\n");
+		printf("	Preparo:\n	%s\n\n",prep->preparo);
+		printf("	Entre com o Preparo:");
 		scanf("%[^\n]", rec->dificuldade);
 		getchar();
 		system("cls");
@@ -498,7 +588,7 @@ void atualizarReceitas(void) {
 	strcpy(ing->codReceita, cod);
 	regravarReceita(rec);
 	regravarPreparo(prep);
-	regravarIngredienetes(ing);
+	regravarIngredientes(ing);
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
@@ -530,7 +620,6 @@ char telaescolha(void) {
     printf("**           4. TEMPO DE PREPARO                                         **\n");
 	printf("**           5. DIFICULDADE                                              **\n");
 	printf("**           6. PREPARO                                                  **\n");
-	printf("**           7. INGREDIENTES                                             **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
 	scanf("%c", &op);
@@ -595,19 +684,19 @@ void deletarReceitas(void) {
 	printf("**           Nome da Receita para Deletar:                               **\n");
 	printf("             ");
 	scanf("%[^\n]", cod);
+	getchar();
 	rec = buscarReceita(cod);
 	prep = buscaPreparo(cod);
 	ing = buscaIngredientes(cod);
-	getchar();
 	if (rec == NULL) {
     	printf("\n\nReceita não encontrada!\n\n");
   	} else {
+		  ing->status = 'd';
 		  rec->status = 'd';
 		  prep->status = 'd';
-		  ing->status = 'd';
+		  regravarIngredientes(ing);
 		  regravarReceita(rec);
 		  regravarPreparo(prep);
-		  regravarIngredienetes(ing);
 		  
 	}
 	printf("***************************************************************************\n");
@@ -636,10 +725,45 @@ void verReceitas(void) {
 	printf("**           --------------   Ver Receitas  ----------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
+	exibirtodas();
 	printf("**                                                                       **\n");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+}
+
+
+//Funcao para exibir Receitas
+void exibirtodas(void){
+	FILE* cd;
+	Receita* rec;
+	rec = (Receita*) malloc(sizeof(Receita));
+	cd = fopen("Receitas.dat", "rb");
+	if (cd == NULL) {
+		printf("Arquivos de Receitas nao Existe!");
+	}
+	else{
+		while(!feof(cd)) {
+			fread(rec, sizeof(Receita), 1, cd);
+			if ( rec->status == 'a' && !feof(cd)) {
+			printf("Codigo da Receita: %s\n", rec->codReceita);
+			printf("Nome: %s\n", rec->nome);
+			printf("\n");
+			}
+		}
+	}
+		free(rec);
+}
+
+//Ver iten da receita e estoque
+int vernoEstoque(Ingredientes* ing){
+	Estoque* est;
+	est = (Estoque*) malloc(sizeof(Estoque));
+	est = procurarEstoque(ing->ingredientes);
+	if(est == NULL){
+		return 1;
+	}
+	return 0;
 }

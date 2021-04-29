@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Receitas.h"
-#include "Estoque.h"
 #include "Financas.h"
 #include "Validacoes.h"
 #include "Relatorio.h"

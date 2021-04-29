@@ -9,7 +9,7 @@ int valQuantidade(int);
 
 struct ingredientes {
 	char codReceita[4];
-	char ingredientes[15];
+	char ingredientes[30];
 	char medida[9];
 	char quantidade[4];
 	char status;
@@ -47,12 +47,14 @@ void gravarIngredientes(Ingredientes*);
 void gravarPreparo(Preparo*);
 void regravarReceita(Receita*);
 void regravarPreparo(Preparo*);
-void regravarIngredienetes(Ingredientes*);
+void regravarIngredientes(Ingredientes*);
 void exibirReceita(Receita*);
 void exibirIngredientes(char*);
 void exibirPreparo(Preparo*);
 char telaescolha(void);
 char telaescolhaPesquisa(void);
+void exibirtodas(void);
 Receita* buscarReceita(char*); 
 Preparo* buscaPreparo(char*);
 Ingredientes* buscaIngredientes(char*);
+int vernoEstoque(Ingredientes* ing);
