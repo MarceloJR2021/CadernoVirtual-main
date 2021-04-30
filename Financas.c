@@ -52,6 +52,7 @@ Financas* telaAdicionarFinancas(void) {
 	Financas* fin;
 	fin = (Financas*) malloc(sizeof(Financas));
 	float fi;
+	int m;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -60,14 +61,18 @@ Financas* telaAdicionarFinancas(void) {
 	printf("**           ------------- Adicionar Financas --------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("             Valor(R$ 00.00): R$ ");
+	printf("\t\tValor(R$ 00.00): R$ ");
 	do{
+		strcpy(fin->ultEntrada,"");
 		scanf("%[^\n]",fin->ultEntrada);
 		getchar();
-		if(!entradaFinanca(fin->ultEntrada)){
-			printf("	   Entrada Invalida!\n	   Digite NovamenteR$(00.00): R$ ");
+		m = strlen(fin->ultEntrada);
+		if(!entradaFinanca(fin->ultEntrada) || m <= 2){
+			system("cls");
+			printf("\n");
+			printf("\t\tEntrada Invalida!\n\t\tDigite NovamenteR$(00.00): R$ ");
 		}
-	}while(!entradaFinanca(fin->ultEntrada));
+	}while(!entradaFinanca(fin->ultEntrada) || m <= 2);
 	fi = atof(fin->ultEntrada);
 	fin->financa = fi;
 	printf("**                                                                       **\n");
@@ -75,6 +80,17 @@ Financas* telaAdicionarFinancas(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("				Financa Adicionada!!");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+		printf("\n");
 	return fin;
 }
 
@@ -132,18 +148,29 @@ Financas* deletarFinancas(Financas* fin){
 			system("cls");
 			printf("\n");
 			printf("\n");
-			printf("		Sem financas suficiente para remover!\n");
+			printf("\t\tSem financas suficiente para remover!\n");
 			printf("\n");
-			printf("		Faltam %.2f nas Financas!",sub);
+			printf("\t\tFaltam %.2f nas Financas!",sub);
 			printf("\n");
 			printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 			getchar();
 			fclose(fd);
 			free(fi);
-			return NULL;
+			return fin;
 		}
 		fclose(fd);
 		free(fi);
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("				Financa Removida!!");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+		printf("\n");
 		return fin;
 	}
 
@@ -164,11 +191,15 @@ void exibirFinancas(void) {
 	fin = (Financas*) malloc(sizeof(Financas));
 	cd = fopen("Financas.dat", "rb");
 	if (cd == NULL){
-		printf("		Arquivo nao encontrado!");
+		printf("\t\tArquivo nao encontrado!\n");
 	}
 	if (cd != NULL) {
 		fread(fin, sizeof(Financas), 1, cd);
-		printf("		Financa:  R$ %.2f \n", fin->financa);
+		printf("\t\tFinanca: R$ %.2f \n", fin->financa);
+		printf("\n");
+		printf("\t\tUltima Entrada: R$ %s\n",fin->ultEntrada);
+		printf("\n");
+		printf("\t\tUltima Saida: R$ %s",fin->ultSaida);
 	}
 	fclose(cd);
 	free(fin);
@@ -180,7 +211,7 @@ void removerFinancas(void) {
     system("cls");
 	Financas* fin;
 	fin = (Financas*) malloc(sizeof(Financas));
-
+	int m;
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -188,14 +219,18 @@ void removerFinancas(void) {
 	printf("**           -------------- Remover Financas ---------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Valor(R$ 00.00): R$ ");
+	printf("**\t\tValor(R$ 00.00): R$ ");
 	do{
+		strcpy(fin->ultSaida,"");
 		scanf("%[^\n]",fin->ultSaida);
 		getchar();
-		if(!entradaFinanca(fin->ultSaida)){
-			printf("	   Entrada Invalida!\n	   Digite NovamenteR$(00.00): R$ ");
+		m = strlen(fin->ultSaida);
+		if(!entradaFinanca(fin->ultSaida) || m <= 2){
+			system("cls");
+			printf("\n");
+			printf("\t\tEntrada Invalida!\n\t\tDigite NovamenteR$(00.00): R$ ");
 		}
-	}while(!entradaFinanca(fin->ultSaida));
+	}while(!entradaFinanca(fin->ultSaida) || m <= 2);
 	fin = deletarFinancas(fin);
 	if (fin != NULL){
 		gravarFinanca(fin);
@@ -204,25 +239,13 @@ void removerFinancas(void) {
 		printf("\n");
 		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 		getchar();
-		system("cls");
-		printf("\n");
-		printf("\n");
-		printf("\n");
-		printf("				Financa Removida!!");
-		printf("\n");
-		printf("\n");
-		printf("\n");
-		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-		getchar();
-		printf("\n");
+		
 	}
 	if (fin == NULL){
 		system("cls");
 		printf("\n");
 		printf("\n");
-		printf("				Arquivo de Financas nao Encontrado!!");
-		printf("\n");
-		printf("\n");
+		exibirFinancas();
 		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 		getchar();
 	}

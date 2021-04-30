@@ -71,6 +71,10 @@ int main(void) {
 			exibirEstoque();
 			break;
 
+			case '4' :
+			telaexibirEstoque();
+			break;
+			
 			case '0' :
 			opcao = '6';
 			break;

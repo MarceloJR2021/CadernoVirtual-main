@@ -47,6 +47,7 @@ void CadastrarReceitas(void) {
 	Ingredientes* ing;
 	Preparo* prep;
 	char escolha[2];
+	int m;
 	rec = telaPreencherReceita();
 	prep = telaPreencherPreparo();
 	strcpy(prep->codReceita,rec->codReceita);
@@ -57,9 +58,18 @@ void CadastrarReceitas(void) {
 		free(ing);
 		system("cls");
 		printf("	   Deseja Adicionar mais Ingredientes(S/N) :");
-		scanf("%[^\n]",escolha);
-		getchar();
-	}while(strcmp(escolha,"S") == 0 || strcmp(escolha,"s") == 0);
+		do{
+			strcpy(escolha,"");
+			scanf("%[^\n]",escolha);
+			getchar();
+			m = strlen(escolha);
+			if(m == 0 || strcmp(escolha,"N") != 0 && strcmp(escolha,"S") != 0){
+			system("cls");
+			printf("\n");
+			printf("	Entrada Invalida!\n	Entre Novamente(S/N):");
+			}
+		}while(m == 0 || strcmp(escolha,"N") != 0 && strcmp(escolha,"S") != 0);
+	}while(strcmp(escolha,"S") == 0);
 	gravarReceita(rec);
 	gravarPreparo(prep);
 	free(rec);
@@ -70,14 +80,25 @@ void CadastrarReceitas(void) {
 Ingredientes* telaPreencherIngredientes(void){
 	system("cls");
 	Ingredientes* ing;
-	int cont = 0;
+	int m;
 	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
 	ing->status = 'a';
 	printf("***************************************************************************\n");
 	printf("           Ingredientes: \n");
-		printf("           Entre com o nome do Ingrediente: ");
-		scanf("%[^\n]",ing->ingredientes);
-		getchar();
+	printf("           Entre com o nome do Ingrediente: ");
+		do{
+			strcpy(ing->ingredientes,""),
+			scanf("%[^\n]",ing->ingredientes);
+			getchar();
+			m = strlen(ing->ingredientes);
+			printf("\n");
+			if(m == 0){
+				system("cls");
+				printf("\n");
+				printf("\t\tIngredientes: \n");
+				printf("\tNenhuma Entrada!\n\tEntre com o nome do Ingrediente:");
+			}
+		}while(m == 0);
 		printf("	   Entre com a medida:(kg,litro,g,unidade): ");
 		do{
 			scanf("%[^\n]", ing->medida);
@@ -88,12 +109,14 @@ Ingredientes* telaPreencherIngredientes(void){
 		}while(!entradaMedida(ing->medida));
 		printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
 		do{
+			strcpy(ing->quantidade,"");
 			scanf("%[^\n]",ing->quantidade);
 			getchar();
-			if(!entradaInt(ing->quantidade)){
+			m = strlen(ing->quantidade);
+			if(!entradaInt(ing->quantidade) || m == 0){
 				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
 			}
-		}while(!entradaInt(ing->quantidade));
+		}while(!entradaInt(ing->quantidade) || m == 0);
 		
 		system("cls");
 		printf("\n");
@@ -105,8 +128,7 @@ Ingredientes* telaPreencherIngredientes(void){
 Preparo* telaPreencherPreparo(void){
 	Preparo* prep;
 	prep = (Preparo*) malloc(sizeof(Preparo));
-	char fim;
-	int i=0;
+	int m;
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -117,8 +139,18 @@ Preparo* telaPreencherPreparo(void){
 	printf("**                                                                       **\n");
 	printf("\n");
 	printf("           Entre com o Preparo da Receita: ");
-	scanf("%[^\n]", prep->preparo);
-	getchar();
+	do{
+		strcpy(prep->preparo,"");
+		scanf("%[^\n]", prep->preparo);
+		getchar();
+		m = strlen(prep->preparo);
+		printf("\n");
+		if(m == 0){
+			system("cls");
+			printf("\n");
+			printf("\tNenhuma Entrada!\n\tEntre Novamente com o Preparo:\n\t");
+		}
+	}while(m == 0);
 	system("cls");
 	prep->status = 'a';
 	return prep;
@@ -132,7 +164,7 @@ Receita* telaPreencherReceita(void){
 	Receita* rec;
 	rec = (Receita*) malloc(sizeof(Receita));
 	char escolha[2];
-	int m,n;
+	int m;
 
     system("cls");
 	printf("\n");

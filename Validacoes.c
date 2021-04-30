@@ -42,9 +42,15 @@ int entradaFinanca(char* financa){
         }
         if(financa[i] == ponto){
             contponto++;
+            if(!isdigit(financa[i+1])){
+                return 0;
+            }
         }
     }
     if(contponto == 0){
+        return 0;
+    }
+    if(contponto > 1){
         return 0;
     }
     return 1;

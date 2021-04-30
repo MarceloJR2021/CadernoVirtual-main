@@ -3,10 +3,12 @@ char menuEstoque(void);
 void adicionarEstoque(void);
 void removerEstoque(void);
 void exibirEstoque(void);
+void exibirtudo(void);
+void telaexibirEstoque(void);
 
 struct estoque {
 	char status;
-	char item[20];
+	char item[30];
 	char quantidade[50];
 	char preco[20];
     char medida[12];

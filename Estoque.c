@@ -20,6 +20,7 @@ char menuEstoque(void) {
 	printf("**           1. Adicionar Estoque                                        **\n");
 	printf("**           2. Remover Estoque                                          **\n");
 	printf("**           3. Procurar Estoque                                         **\n");
+	printf("**           4. Ver Estoque   	                                         **\n");
 	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
@@ -133,7 +134,7 @@ Estoque* aberturaFinancas(Estoque* est){
 Estoque* telaAdicionarEstoque(void) {
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
-
+	int m;
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -142,33 +143,59 @@ Estoque* telaAdicionarEstoque(void) {
 	printf("**           ------------- Adicionar Estoque ---------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("             Item:  ");
-	scanf("%[^\n]", est->item);
-	getchar();
-	printf("             Quantidade:   ");
+	printf("\t\tItem:  ");
 	do{
+		strcpy(est->item,"");
+		scanf("%[^\n]", est->item);
+		getchar();
+		m = strlen(est->item);
+		if(m == 0){
+			system("cls");
+			printf("\n");
+			printf("\t\tNenhuma Entrada!\n\t\tEntre com o Item:");
+		}
+	}while(m == 0);
+	printf("\t\tQuantidade: ");
+	do{
+		strcpy(est->quantidade,"");
 		scanf("%[^\n]",est->quantidade);
 		getchar();
-		if(!entradaInt(est->quantidade)){
-			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
+		m = strlen(est->quantidade);
+		if(!entradaInt(est->quantidade) || m == 0){
+			system("cls");
+			printf("\n");
+			printf("\t\tItem: %s\n\n",est->item);
+			printf("\t\tEntrada Invalida!\n\t\tDigite a Quantidade novamente: ");
 		}
-	}while(!entradaInt(est->quantidade));
-	printf("	     Entre com a medida:(kg,litro,g,unidade): ");
+	}while(!entradaInt(est->quantidade) || m == 0);
+	printf("\t\tEntre com a medida:(kg,litro,g,unidade): ");
 	do{
 		scanf("%[^\n]",est->medida);
 		getchar();
 		if(!entradaMedida(est->medida)){
-			printf("	     Entrada Invalida!\n	     Digite Novamente: ");
+			system("cls");
+			printf("\n");
+			printf("\t\tItem: %s\n",est->item);
+			printf("\t\tQuantidade: %s\n\n",est->quantidade);
+			printf("\t\tEntrada Invalida!\n\t\tDigite Novamente(kg,litro,g,unidade): ");
 		}
 	}while(!entradaMedida(est->medida));
-	printf("             Valor Gasto R$(00.00):    ");
+	printf("\n");
+	printf("\t\tValor Gasto R$(00.00): R$ ");
 	do{
+		strcpy(est->preco,"");
 		scanf("%[^\n]",est->preco);
 		getchar();
-		if(!entradaFinanca(est->preco)){
-			printf("	   Entrada Invalida!\n	     Digite NovamenteR$(00.00): R$ ");
+		m = strlen(est->preco);
+		if(!entradaFinanca(est->preco) || m <= 2){
+			system("cls");
+			printf("\n");
+			printf("\t\tItem: %s\n",est->item);
+			printf("\t\tQuantidade: %s\n",est->quantidade);
+			printf("\t\tMedida: %s\n\n",est->medida);
+			printf("\t\tEntrada Invalida!\n\t\tDigite Novamente R$(00.00): R$ ");
 		}
-	}while(!entradaFinanca(est->preco));
+	}while(!entradaFinanca(est->preco) || m <= 2);
 	est->status = 'a';
 	printf("**                                                                       **\n");	
 	printf("***************************************************************************\n");
@@ -216,7 +243,7 @@ Estoque* procurarEstoque(char* nome) {
 	int m;
 	int n;
 	int i;
-	char comp[20];
+	char comp[30];
 	est = (Estoque*) malloc(sizeof(Estoque));
 	cd = fopen("Estoque.dat", "rb");
 	if (cd == NULL) {
@@ -249,7 +276,7 @@ Estoque* procurarEstoque(char* nome) {
 void exibirEstoque(void) {
     system("cls");
 	Estoque* est;
-	char nome[15];
+	char nome[30];
 	printf("\n");
 	printf(" -----------------------------------------------  \n");
 	printf(" -----------  Procurar no Estoque  -------------  \n");
@@ -263,7 +290,7 @@ void exibirEstoque(void) {
 		printf("Item nao encontrado!");
 	}
 	else{
-		printf("       %s - %s - %s	 \n",est->item,est->quantidade,est->medida);
+		printf("\t%s\t%s %s	 \n",est->item,est->quantidade,est->medida);
 	}
 	printf("\n");
 	printf("\n");
@@ -309,4 +336,60 @@ void removerEstoque(void) {
 	
 	
 }
+//Tela exibir estoque
+void telaexibirEstoque(void){
+	system("cls");
+	printf("\n");
+	printf("***************************************************************************\n");
+	printf("**                                                                       **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**           ------------------ Estoque --------------------             **\n");
+	printf("**           -----------------------------------------------             **\n");
+	printf("**                                                                       **\n");
+	printf("\tNome\t\t||\tQuantidade\t\t||\tMedida");
+	printf("\n");
+	printf("\n");
+	exibirtudo();
+	printf("\n");
+	printf("\n");
+	printf("\n");
+	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+	getchar();
+
+}
+
+//Exibir todo Estoque
+void exibirtudo(void){
+	FILE* cd;
+	Estoque* est;
+	int m;
+	est = (Estoque*) malloc(sizeof(Estoque));
+	cd = fopen("Estoque.dat", "rb");
+	if (cd == NULL) {
+		printf("Arquivo de Estoque nao encontrado!");
+	}
+	while(!feof(cd)) {
+		fread(est, sizeof(Estoque), 1, cd);
+		if (est == NULL) {
+				printf("\n Nao Existem Ingredientes para Exibir \n");
+		}
+		if(est->status == 'a' && !feof(cd)) {
+			m = strlen(est->item);
+			if(m >= 13){
+				printf("  %s ",est->item);
+				printf("\t\t %s",est->quantidade);
+				printf("\t\t\t %s\n",est->medida);
+
+			}	
+			else{
+				printf("  %s ",est->item);
+				printf("\t\t\t %s",est->quantidade);
+				printf("\t\t\t %s\n",est->medida);
+			}
+			}
+	}
+	fclose(cd);	
+	free(est);
+}
+
 
