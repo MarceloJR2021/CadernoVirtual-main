@@ -3,8 +3,6 @@ char menuEstoque(void);
 void adicionarEstoque(void);
 void removerEstoque(void);
 void exibirEstoque(void);
-void exibirtudo(void);
-void telaexibirEstoque(void);
 
 struct estoque {
 	char status;

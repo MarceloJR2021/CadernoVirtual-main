@@ -27,7 +27,6 @@ char menuReceitas(void) {
 	printf("**           2. Encontrar Receitas                                       **\n");
 	printf("**           3. Atualizar Receitas                                       **\n");
     printf("**           4. Deletar receitas                                         **\n");
-	printf("**           5. Ver Receitas                                             **\n");
 	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
@@ -746,48 +745,8 @@ void deletarReceitas(void) {
 	free(ing);
 }
 
-//Função para Ver todos os nomes das Receitas 
-
-void verReceitas(void) {
-    system("cls");
-	printf("\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           --------------   Ver Receitas  ----------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	exibirtodas();
-	printf("**                                                                       **\n");
-	printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-}
 
 
-//Funcao para exibir Receitas
-void exibirtodas(void){
-	FILE* cd;
-	Receita* rec;
-	rec = (Receita*) malloc(sizeof(Receita));
-	cd = fopen("Receitas.dat", "rb");
-	if (cd == NULL) {
-		printf("Arquivos de Receitas nao Existe!");
-	}
-	else{
-		while(!feof(cd)) {
-			fread(rec, sizeof(Receita), 1, cd);
-			if ( rec->status == 'a' && !feof(cd)) {
-			printf("Codigo da Receita: %s\n", rec->codReceita);
-			printf("Nome: %s\n", rec->nome);
-			printf("\n");
-			}
-		}
-	}
-		free(rec);
-}
 
 //Ver iten da receita e estoque
 int vernoEstoque(Ingredientes* ing){
@@ -799,3 +758,4 @@ int vernoEstoque(Ingredientes* ing){
 	}
 	return 0;
 }
+

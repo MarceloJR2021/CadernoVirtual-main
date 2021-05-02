@@ -1,3 +1,10 @@
 void relatorioReceitas(void);
+char menuRelatorio(void);
 void relatorioEstoque(void);
 void relatorioFinancas(void);
+void exibirtodas(void);
+int quantReceitas(void);
+void ordenarReceitas(void);
+void ordenarEstoque(void);
+void exibirtodoEstoque(void);
+void exibirFinancas(void);

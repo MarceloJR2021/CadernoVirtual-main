@@ -2,7 +2,6 @@
 char menuFinancas(void);
 void adicionarFinancas(void);
 void removerFinancas(void);
-void verFinancas(void);
 
 struct financas {
 	float financa;
@@ -14,6 +13,5 @@ typedef struct financas Financas;
 
 Financas* telaAdicionarFinancas(void);
 void gravarFinanca(Financas*);
-void exibirFinancas(void);
 Financas* somaFinancas(Financas*);
 Financas* deletarFinancas(Financas*);

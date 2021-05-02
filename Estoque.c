@@ -19,8 +19,7 @@ char menuEstoque(void) {
 	printf("**                                                                       **\n");
 	printf("**           1. Adicionar Estoque                                        **\n");
 	printf("**           2. Remover Estoque                                          **\n");
-	printf("**           3. Procurar Estoque                                         **\n");
-	printf("**           4. Ver Estoque   	                                         **\n");
+	printf("**           3. Procurar Estoque                                         **\n");	
 	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
@@ -335,61 +334,6 @@ void removerEstoque(void) {
 	}
 	
 	
-}
-//Tela exibir estoque
-void telaexibirEstoque(void){
-	system("cls");
-	printf("\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           ------------------ Estoque --------------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	printf("\tNome\t\t||\tQuantidade\t\t||\tMedida");
-	printf("\n");
-	printf("\n");
-	exibirtudo();
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-
-}
-
-//Exibir todo Estoque
-void exibirtudo(void){
-	FILE* cd;
-	Estoque* est;
-	int m;
-	est = (Estoque*) malloc(sizeof(Estoque));
-	cd = fopen("Estoque.dat", "rb");
-	if (cd == NULL) {
-		printf("Arquivo de Estoque nao encontrado!");
-	}
-	while(!feof(cd)) {
-		fread(est, sizeof(Estoque), 1, cd);
-		if (est == NULL) {
-				printf("\n Nao Existem Ingredientes para Exibir \n");
-		}
-		if(est->status == 'a' && !feof(cd)) {
-			m = strlen(est->item);
-			if(m >= 13){
-				printf("  %s ",est->item);
-				printf("\t\t %s",est->quantidade);
-				printf("\t\t\t %s\n",est->medida);
-
-			}	
-			else{
-				printf("  %s ",est->item);
-				printf("\t\t\t %s",est->quantidade);
-				printf("\t\t\t %s\n",est->medida);
-			}
-			}
-	}
-	fclose(cd);	
-	free(est);
 }
 
 

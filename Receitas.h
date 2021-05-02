@@ -23,7 +23,7 @@ struct receitas {
 	char tempo[4];
 	char dificuldade[2];
 	char status;
-
+	char prox[4];
 };
 
 struct preparo {
@@ -53,7 +53,6 @@ void exibirIngredientes(char*);
 void exibirPreparo(Preparo*);
 char telaescolha(void);
 char telaescolhaPesquisa(void);
-void exibirtodas(void);
 Receita* buscarReceita(char*); 
 Preparo* buscaPreparo(char*);
 Ingredientes* buscaIngredientes(char*);

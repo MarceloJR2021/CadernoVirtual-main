@@ -15,6 +15,7 @@ int main(void) {
 	char opcao1;
 	char opcao2;
 	char opcao3;
+	char opcao4;
 
 	do {
 	opcao = menuPrincipal();
@@ -42,10 +43,6 @@ int main(void) {
 			deletarReceitas();
 			break;
 
-			case '5' :
-			verReceitas();
-			break;
-
 			case '0' :
 			opcao = '6';
 			break;
@@ -66,15 +63,11 @@ int main(void) {
 			case '2' :
 			removerEstoque();
 			break; 
-
+			
 			case '3' :
 			exibirEstoque();
 			break;
 
-			case '4' :
-			telaexibirEstoque();
-			break;
-			
 			case '0' :
 			opcao = '6';
 			break;
@@ -95,10 +88,6 @@ int main(void) {
 			case '2' :
 			removerFinancas();
 			break; 
-
-			case '3' :
-			verFinancas();
-			break;
 			
 			case '0' :
 			opcao = '6';
@@ -110,14 +99,36 @@ int main(void) {
 		break;
 
 		case '4' :
+		do{
+		opcao4 = menuRelatorio();
+		switch (opcao4) 
+		{
+			case '1' :
+			relatorioReceitas();
+			break;
+
+			case '2' :
+			relatorioEstoque();
+			break; 
+			
+			case '3' :
+			relatorioFinancas();
+			break;
+			
+			case '0' :
+			opcao = '6';
+			break;
+		
+		}	
+		}while(opcao4 != '0');
+		break;
+
+
+		case '5' :
 		telaSobre();
 		break;
 
-		case '5' :
-		relatorioReceitas();
-		relatorioEstoque();
-		relatorioFinancas();
-		break;
+		
 
 
 	}
@@ -138,7 +149,7 @@ void telaSobre(void) {
 	system("cls");
     printf("\n");
     printf("*****************************************************************************\n");
-    printf("**  Projeto Caderno Virtual de Receitas Culinarias                     **\n");
+    printf("**      Projeto Caderno Virtual de Receitas Culinarias                     **\n");
     printf("**      Desenvolvedor - Marcelo Jailson de Araujo Junior                   **\n");
     printf("**                                                                         **\n");
     printf("*****************************************************************************\n");
@@ -162,29 +173,29 @@ char menuPrincipal(void) {
 	char op;
     system("cls");
 	printf("\n");
-	printf("***************************************************************************\n");
-    printf("**     		 Projeto Caderno Virtual de Receitas Culinarias              **\n");
-    printf("**    	     Desenvolvedor - Marcelo Jailson de Araujo Junior            **\n");
-    printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           ---------------  Menu Principal ---------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	printf("**           1. Modo Receitas                                            **\n");
-	printf("**           2. Modo Estoque                                             **\n");
-	printf("**           3. Modo Financas                                            **\n");
-    printf("**           4. Informacoes sobre o sistema                              **\n");
-	printf("**           5. Relatorios        		                         **\n");
-	printf("**           0. Encerra o programa                                       **\n");
-	printf("**                                                                       **\n");
+	printf("*************************************************************************\n");
+    printf("*\t\tProjeto Caderno Virtual de Receitas Culinarias\t\t*\n");
+    printf("*\t\tDesenvolvedor - Marcelo Jailson de Araujo Junior\t*\n");
+    printf("*                                                                       *\n");
+	printf("*************************************************************************\n");
+	printf("*                                                                       *\n");
+	printf("*           -----------------------------------------------             *\n");
+	printf("*           ---------------  Menu Principal ---------------             *\n");
+	printf("*           -----------------------------------------------             *\n");
+	printf("*                                                                       *\n");
+	printf("*           1. Modo Receitas                                            *\n");
+	printf("*           2. Modo Estoque                                             *\n");
+	printf("*           3. Modo Financas                                            *\n");
+	printf("*           4. Relatorios        		                        *\n");
+    printf("*           5. Informacoes sobre o sistema                              *\n");
+	printf("*           0. Encerra o programa                                       *\n");
+	printf("*                                                                       *\n");
 	printf("             Escolha a opcao desejada:  ");
 	scanf("%c", &op);
 	getchar();
-	printf("**                                                                       **\n");
-	printf("**                                                                       **\n");
-	printf("***************************************************************************\n");
+	printf("*                                                                       *\n");
+	printf("*                                                                       *\n");
+	printf("*************************************************************************\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();

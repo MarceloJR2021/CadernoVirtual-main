@@ -23,7 +23,6 @@ char menuFinancas(void) {
 	printf("**                                                                       **\n");
 	printf("**           1. Adicionar Financas                                       **\n");
 	printf("**           2. Remover   Financas                                       **\n");
-    printf("**           3. Ver Financas                                             **\n");
 	printf("**           0. Voltar                                                   **\n");
 	printf("**                                                                       **\n");
 	printf("             Escolha a opcao desejada:  ");
@@ -75,6 +74,7 @@ Financas* telaAdicionarFinancas(void) {
 	}while(!entradaFinanca(fin->ultEntrada) || m <= 2);
 	fi = atof(fin->ultEntrada);
 	fin->financa = fi;
+	strcpy(fin->ultSaida ,"00.00");
 	printf("**                                                                       **\n");
 	printf("***************************************************************************\n");
 	printf("\n");
@@ -184,27 +184,7 @@ void gravarFinanca(Financas* fin){
 	fclose(cd);
 }
 
-//Funcao ver Financa
-void exibirFinancas(void) {
-	FILE* cd;
-	Financas* fin;
-	fin = (Financas*) malloc(sizeof(Financas));
-	cd = fopen("Financas.dat", "rb");
-	if (cd == NULL){
-		printf("\t\tArquivo nao encontrado!\n");
-	}
-	if (cd != NULL) {
-		fread(fin, sizeof(Financas), 1, cd);
-		printf("\t\tFinanca: R$ %.2f \n", fin->financa);
-		printf("\n");
-		printf("\t\tUltima Entrada: R$ %s\n",fin->ultEntrada);
-		printf("\n");
-		printf("\t\tUltima Saida: R$ %s",fin->ultSaida);
-	}
-	fclose(cd);
-	free(fin);
-		
-}
+
 
 //Função para Remover Finanças
 void removerFinancas(void) {
@@ -252,21 +232,3 @@ void removerFinancas(void) {
 	free(fin);
 }
 
-//Função para Ver as Finanças
-
-void verFinancas(void) {
-    system("cls");
-	printf("\n");
-	printf("***************************************************************************\n");
-	printf("**                                                                       **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**           --------------   Ver Financas  ----------------             **\n");
-	printf("**           -----------------------------------------------             **\n");
-	printf("**                                                                       **\n");
-	exibirFinancas();
-	printf("\n");
-	printf("\n");
-	printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-	getchar();
-}
