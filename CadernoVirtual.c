@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Receitas.h"
-#include "Financas.h"
+#include "Estoque.h"
 #include "Validacoes.h"
 #include "Relatorio.h"
 
@@ -102,6 +102,8 @@ int main(void) {
 		do{
 		Receita* lista;
 		lista = NULL;
+		Estoque* listaest;
+		listaest = NULL;
 		opcao4 = menuRelatorio();
 		switch (opcao4) 
 		{
@@ -111,7 +113,8 @@ int main(void) {
 			break;
 
 			case '2' :
-			relatorioEstoque();
+			ordenarestEstoque(&listaest);
+			exibirestOrdenada(listaest);
 			break; 
 			
 			case '3' :

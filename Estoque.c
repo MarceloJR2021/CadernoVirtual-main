@@ -134,6 +134,9 @@ Estoque* telaAdicionarEstoque(void) {
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
 	int m;
+	int n;
+	int i;
+	char comp[30];
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -154,6 +157,12 @@ Estoque* telaAdicionarEstoque(void) {
 			printf("\t\tNenhuma Entrada!\n\t\tEntre com o Item:");
 		}
 	}while(m == 0);
+	strcpy(comp,est->item);
+	n = strlen(comp);
+    	for(i = 0;i < m;i++){
+        comp[i] = toupper(comp[i]);
+    }
+	strcpy(est->item,comp);
 	printf("\t\tQuantidade: ");
 	do{
 		strcpy(est->quantidade,"");
@@ -250,7 +259,6 @@ Estoque* procurarEstoque(char* nome) {
 	}
 	while(!feof(cd)) {
 		fread(est, sizeof(Estoque), 1, cd);
-		if(est)
 		strcpy(comp,est->item);
 		m = strlen(comp);
     	for(i = 0;i < m;i++){

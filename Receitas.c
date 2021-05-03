@@ -164,6 +164,9 @@ Receita* telaPreencherReceita(void){
 	rec = (Receita*) malloc(sizeof(Receita));
 	char escolha[2];
 	int m;
+	int n;
+	char comp[50];
+	int i;
 
     system("cls");
 	printf("\n");
@@ -202,6 +205,12 @@ Receita* telaPreencherReceita(void){
 			printf("	Entre com algum Nome:");
 		}
 	}while(m == 0);
+	strcpy(comp,rec->nome);
+	n = strlen(comp);
+    	for(i = 0;i < m;i++){
+        comp[i] = toupper(comp[i]);
+    }
+	strcpy(rec->nome,comp);
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");

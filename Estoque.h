@@ -1,3 +1,4 @@
+#include "Financas.h"
 
 char menuEstoque(void);
 void adicionarEstoque(void);
@@ -7,19 +8,12 @@ void exibirEstoque(void);
 struct estoque {
 	char status;
 	char item[30];
-	char quantidade[50];
-	char preco[20];
-    char medida[12];
-	
-};
-struct financas {
-	float financa;
-	char ultEntrada[10];
-	char ultSaida[10];
-	
+	char quantidade[5];
+	char preco[10];
+    char medida[9];
+	struct estoque* prox;
 };
 
-typedef struct financas Financas;
 
 typedef struct estoque Estoque;
 
