@@ -23,7 +23,7 @@ struct receitas {
 	char tempo[4];
 	char dificuldade[2];
 	char status;
-	char prox[4];
+	struct receitas *prox;
 };
 
 struct preparo {

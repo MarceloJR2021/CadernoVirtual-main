@@ -32,6 +32,8 @@ char menuRelatorio(void) {
 }
 
 
+
+
 //Contar Receitas
 int quantReceitas(void){
 	FILE* cd;
@@ -74,35 +76,79 @@ int quantEstoque(void){
 	return cont;
 }
 
+//exibir Receitas ordenadas
+void exibirrecOrdenada(Receita* rec){
+	system("cls");
+	printf("\n");
+	 while (rec != NULL){
+        printf("\n= = = Receita = = =\n");
+		printf("Codigo da Receita: %s\n", rec->codReceita);
+		printf("Nome: %s\n", rec->nome);
+		printf("Origem: %s\n", rec->origem);
+		printf("Obtencao: %s\n", rec->obtencao);
+		printf("Tempo de Preparo: %s minutos\n", rec->tempo);
+		printf("Dificuldade de Preparo: %s\n", rec->dificuldade);
+		printf("Status da Receita: %c\n", rec->status);
+        rec = rec->prox;
+    }
+	printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////////////////////////\n\n");
+    printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+	system("cls");
+
+}
+
+//Apagar lista
+void apagarLista(Receita **lista){
+    Receita *rec;
+    
+    while (*lista != NULL){
+   	    rec = *lista;
+        *lista = (*lista)->prox;
+        free(rec);
+    }   
+}
+
+
 //Ordenar
-void ordenarReceitas(void){
+void ordenarrecReceitas(Receita **rect){
 	FILE* cd;
 	Receita* rec;
-	Receita* list;
-	int cont=0;
-	int contador=0;
-	cont = quantReceitas();
-	rec = (Receita*) malloc(sizeof(Receita));
-	list = (Receita*) malloc(sizeof(Receita));
-	cd = fopen("Receitas.dat", "r+b");
-	if (cd == NULL) {
-		printf("Arquivos de Receitas nao Existe!");
+	
+	apagarLista(&(*rect));
+    *rect = NULL;
+	cd = fopen("Receitas.dat","rb");
+
+	if(cd == NULL){
+		printf("Arquivo nao encontrado!");
 	}
 	else{
-		do{
-			fread(rec, sizeof(Receita), 1, cd);
-			fread(list, sizeof(Receita), 1, cd);
-			if(strcmp(rec->nome,list->nome) < 0){
-				strcpy(list->prox,rec->codReceita);
+		rec = (Receita*) malloc(sizeof(Receita));
+		while(fread(rec,sizeof(Receita),1,cd)){
+			if(*rect == NULL || strcmp(rec->nome,(*rect)->nome) < 0){
+				rec->prox = *rect;
+				*rect = rec;
 			}
 			else{
-				strcpy(rec->prox,list->codReceita);
+				Receita* ant = *rect;
+				Receita* atu = (*rect)->prox;
+				while((atu != NULL) && (strcmp(atu->nome,rec->nome) < 0)){
+					ant = atu;
+					atu = atu->prox;
+				}
+				ant->prox = rec;
+				rec->prox = atu;
+
 			}
-			regravarReceita(rec);
-			contador++;
-		}while(contador < cont && !feof(cd));
+			rec = (Receita*) malloc(sizeof(Receita));
+		}
+	free(rec);
+	fclose(cd);
 	}
 }
+
+
 
 
 //ordenar Estoque

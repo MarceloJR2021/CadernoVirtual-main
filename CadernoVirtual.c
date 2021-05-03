@@ -100,11 +100,14 @@ int main(void) {
 
 		case '4' :
 		do{
+		Receita* lista;
+		lista = NULL;
 		opcao4 = menuRelatorio();
 		switch (opcao4) 
 		{
 			case '1' :
-			relatorioReceitas();
+			ordenarrecReceitas(&lista);
+			exibirrecOrdenada(lista);
 			break;
 
 			case '2' :

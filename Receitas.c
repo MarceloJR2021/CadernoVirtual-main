@@ -262,6 +262,7 @@ Receita* telaPreencherReceita(void){
 	}while(strcmp(escolha,"F") != 0 && strcmp(escolha,"M") != 0 && strcmp(escolha,"D") != 0);
 	printf("\n");
 	rec->status = 'a';
+	rec->prox = NULL;
 	printf("***************************************************************************\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
