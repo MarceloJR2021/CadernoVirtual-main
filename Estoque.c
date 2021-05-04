@@ -9,6 +9,7 @@ typedef struct financas Financas;
 //Função para mostrar o menu do Estoque
 char menuEstoque(void) {
 	char op;
+	do{
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -30,6 +31,7 @@ char menuEstoque(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	}while(op != '1' && op != '2' && op != '3' && op != '0');
 	return op;
 }
 

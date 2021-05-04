@@ -177,6 +177,7 @@ void telaSobre(void) {
 
 char menuPrincipal(void) {
 	char op;
+	do{
     system("cls");
 	printf("\n");
 	printf("*************************************************************************\n");
@@ -205,6 +206,7 @@ char menuPrincipal(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	}while(op != '1' && op != '2' && op != '3' && op != '4' && op != '5' && op != '0');
 	return op;
 }
 

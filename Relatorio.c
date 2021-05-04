@@ -7,6 +7,7 @@
 
 char menuRelatorio(void) {
 	char op;
+	do{
     system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
@@ -28,6 +29,7 @@ char menuRelatorio(void) {
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	}while(op != '1' && op != '2' && op != '3' && op != '0');
 	return op;
 }
 
@@ -113,13 +115,9 @@ void exibirrecOrdenada(Receita* rec){
 		exibirPreparo(prep);
 		exibirIngredientes(rec->codReceita);
         rec = rec->prox;
-		printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    	getchar();
 		system("cls");
 	}
 	printf("\n");
- 	printf("\t\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
 	free(prep);
 	system("cls");
 
@@ -145,6 +143,7 @@ void exibirestOrdenada(Estoque* est){
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
 	system("cls");
+	if(contest > 0){
 	printf("\n");
 	printf("\n");
 	printf("\n");
@@ -175,6 +174,7 @@ void exibirestOrdenada(Estoque* est){
 	printf("\n");
 	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	}
 
 
 }
@@ -212,13 +212,7 @@ void ordenarrecReceitas(Receita **rect){
 	cd = fopen("Receitas.dat","rb");
 
 	if(cd == NULL){
-		system("cls");
-		printf("\n");
-		printf("\n");
-		printf("\tArquivo nao encontrado!");
-		printf("\n");
-		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-		getchar();
+		printf("");
 	}
 	else{
 		rec = (Receita*) malloc(sizeof(Receita));
@@ -260,13 +254,7 @@ void ordenarestEstoque(Estoque **estc){
 	cd = fopen("Estoque.dat","rb");
 
 	if(cd == NULL){
-		system("cls");
-		printf("\n");
-		printf("\n");
-		printf("\tArquivo nao encontrado!");
-		printf("\n");
-		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-		getchar();
+		printf("");
 	}
 	else{
 		est = (Estoque*) malloc(sizeof(Estoque));
@@ -307,7 +295,9 @@ void exibirFinancas(void) {
 	fin = (Financas*) malloc(sizeof(Financas));
 	cd = fopen("Financas.dat", "rb");
 	if (cd == NULL){
-		printf("\t\tArquivo nao encontrado!\n");
+		printf("\tR$ 00.00");
+		printf("\t\tR$ 00.00");
+		printf("\t\tR$ 00.00");
 	}
 	if (cd != NULL) {
 		fread(fin, sizeof(Financas), 1, cd);

@@ -18,6 +18,15 @@ int entradaInt(char* ent){
 
 }
 
+int opcaoMenu(char* op){
+    int n = strlen(op);
+    if(n > 1){
+        return 0;
+    }
+    return 1;
+
+}
+
 int entradaMedida(char* medida){
     int m;
     int i;

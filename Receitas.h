@@ -6,6 +6,10 @@ void encontrarReceitas(void);
 void CadastrarReceitas(void);
 char menuReceitas(void);
 int valQuantidade(int);
+int buscaCompleta(char*);
+int buscaporIngredientes(char*);
+int abrirArquivo(void);
+
 
 struct ingredientes {
 	char codReceita[4];
@@ -57,3 +61,4 @@ Receita* buscarReceita(char*);
 Preparo* buscaPreparo(char*);
 Ingredientes* buscaIngredientes(char*);
 int vernoEstoque(Ingredientes* ing);
+int acharExistente(char*);
