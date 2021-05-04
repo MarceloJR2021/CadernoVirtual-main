@@ -38,6 +38,19 @@ char menuFinancas(void) {
 	return op;
 }
 
+//Abrir arquivo de Financas
+int abrirArquivofin(void){
+	FILE* cd;
+	Financas* fin;
+	fin = (Financas*) malloc(sizeof(Financas));
+	cd = fopen("Financas.dat", "r+b");
+	if (cd == NULL) {
+		return 0;
+	}
+	return 1;
+}
+
+
 //Função para adicionar Finanças
 void adicionarFinancas(void){
 	Financas* fin;
@@ -194,6 +207,8 @@ void removerFinancas(void) {
 	Financas* fin;
 	fin = (Financas*) malloc(sizeof(Financas));
 	int m;
+	int a = abrirArquivofin();
+	if(a == 1){
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -229,6 +244,17 @@ void removerFinancas(void) {
 		printf("\n");
 		exibirFinancas();
 		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+	}
+	}
+	else{
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\t\tArquivo de Financas nao Encontrado!");
+		printf("\n");
+		printf("\n");
+    	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 		getchar();
 	}
 	free(fin);

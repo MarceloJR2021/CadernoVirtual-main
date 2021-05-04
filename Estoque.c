@@ -35,21 +35,87 @@ char menuEstoque(void) {
 	return op;
 }
 
+//Abrir arquivo de Estoque
+int abrirArquivoest(void){
+	FILE* cd;
+	Estoque* est;
+	est = (Estoque*) malloc(sizeof(Estoque));
+	cd = fopen("Estoque.dat", "r+b");
+	if (cd == NULL) {
+		return 0;
+	}
+	return 1;
+}
+
+//Achar Item Existente no Estoque
+Estoque* acharestExistente(char* cod){
+	FILE* cd;
+	Estoque* est;
+	est = (Estoque*) malloc(sizeof(Estoque));
+	cd = fopen("Estoque.dat", "rb");
+	if (cd == NULL) {
+		return 0;
+	}
+	while(!feof(cd)) {
+		fread(est, sizeof(Estoque), 1, cd);
+		if (strcmp(est->item, cod) == 0 && est->status == 'a') {
+		fclose(cd);
+		return est;
+		}
+	}
+	fclose(cd);	
+	return NULL;
+
+}
+
 //Função para adicionar o estoque
 void adicionarEstoque(void){
 	Estoque* est;
 	Estoque* est2;
 	Financas* fin;
-	est2 = (Estoque*)malloc(sizeof(Estoque));
+	Estoque* estv;
+	int m,n,soma;
+	char quant;
+	int a = abrirArquivofin();
+	system("cls");
+	if(a == 1){
+	est2 = (Estoque*) malloc(sizeof(Estoque));
 	est = telaAdicionarEstoque();
+	estv = acharestExistente(est->item);
+	if(estv != NULL){
+		if(strcmp(est->medida,estv->medida) == 0){
+			m = atoi(est->quantidade);
+			n = atoi(estv->quantidade);
+			soma = m + n;
+			quant = soma + '0';
+			sprintf(estv->quantidade,"%d",soma);
+			est2 = aberturaFinancas(est);
+			regravarEstoque(estv);
+			fin = deletarFinancasest(est2);
+			gravarFinancaest(fin);
+		}
+	}
+	else{
 	est2 = aberturaFinancas(est);
 	if(est2 != NULL){
 		gravarEstoque(est2);
 		fin = deletarFinancasest(est2);
 		gravarFinancaest(fin);
 	}
+	}
 	free(est);
 	free(est2);
+	free(estv);
+	}
+	else{
+		printf("\n");
+		printf("\n");
+		printf("\t\tSem Arquivo de Financas Para Adicionar Itens ao Estoque!");
+		printf("\n");
+		printf("\n");
+    	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+	}
 }
 
 //Gravar Financa do estoque em Arquivo
@@ -147,7 +213,7 @@ Estoque* telaAdicionarEstoque(void) {
 	printf("**           ------------- Adicionar Estoque ---------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("\t\tItem:  ");
+	printf("\t\tItem(Sem acentos):  ");
 	do{
 		strcpy(est->item,"");
 		scanf("%[^\n]", est->item);
@@ -165,6 +231,9 @@ Estoque* telaAdicionarEstoque(void) {
         comp[i] = toupper(comp[i]);
     }
 	strcpy(est->item,comp);
+	system("cls");
+	printf("\n");
+	printf("\n");
 	printf("\t\tQuantidade: ");
 	do{
 		strcpy(est->quantidade,"");
@@ -178,6 +247,9 @@ Estoque* telaAdicionarEstoque(void) {
 			printf("\t\tEntrada Invalida!\n\t\tDigite a Quantidade novamente: ");
 		}
 	}while(!entradaInt(est->quantidade) || m == 0);
+	system("cls");
+	printf("\n");
+	printf("\n");
 	printf("\t\tEntre com a medida:(kg,litro,g,unidade): ");
 	do{
 		scanf("%[^\n]",est->medida);
@@ -190,6 +262,9 @@ Estoque* telaAdicionarEstoque(void) {
 			printf("\t\tEntrada Invalida!\n\t\tDigite Novamente(kg,litro,g,unidade): ");
 		}
 	}while(!entradaMedida(est->medida));
+	system("cls");
+	printf("\n");
+	printf("\n");
 	printf("\n");
 	printf("\t\tValor Gasto R$(00.00): R$ ");
 	do{
@@ -284,14 +359,19 @@ Estoque* procurarEstoque(char* nome) {
 //Função para ver o que tem no Estoque
 void exibirEstoque(void) {
     system("cls");
+	int a;
 	Estoque* est;
+	a = abrirArquivoest();
+	int m;
 	char nome[30];
+	if (a == 1){
 	printf("\n");
 	printf(" -----------------------------------------------  \n");
 	printf(" -----------  Procurar no Estoque  -------------  \n");
 	printf(" -----------------------------------------------  \n");
 	printf("                                                  \n");
-	printf("Entre com o nome do Item para encontrar:");
+	printf("\tNao diferencia Maiuscula de Minuscula e Sem acentos.\n");
+	printf("\tEntre com o nome do Item para encontrar:");
 	scanf("%[^\n]", nome);
 	getchar();
 	est = procurarEstoque(nome);
@@ -299,12 +379,73 @@ void exibirEstoque(void) {
 		printf("Item nao encontrado!");
 	}
 	else{
-		printf("\t%s\t%s %s	 \n",est->item,est->quantidade,est->medida);
+		
+		m = strlen(est->item);
+		if(m < 5){
+			system("cls");
+			printf("\n");
+			printf("\n");
+			printf("   Nome\t|| Quantidade || Medida");
+			printf("\n");
+			printf("\n");
+			printf("  %s \t",est->item);
+			printf("\t %s",est->quantidade);
+			printf("\t %s\n",est->medida);
+			est = est->prox;
+
+		}
+		if(m >= 5 && m < 13){
+			system("cls");
+			printf("\n");
+			printf("\n");
+			printf("   Nome\t\t|| Quantidade ||\tMedida");
+			printf("\n");
+			printf("\n");
+			printf("  %s \t",est->item);
+			printf("\t%s",est->quantidade);
+			printf("\t\t%s\n",est->medida);
+			est = est->prox;
+		}
+		if(m >= 13 && m < 21){
+			system("cls");
+			printf("\n");
+			printf("\n");
+			printf("   Nome\t\t\t|| Quantidade || Medida");
+			printf("\n");
+			printf("\n");
+			printf("  %s \t",est->item);
+			printf("\t%s",est->quantidade);
+			printf("\t   %s\n",est->medida);
+			est = est->prox;
+		}
+		if(m >= 21 ){
+			system("cls");
+			printf("\n");
+			printf("\n");
+			printf("   Nome\t\t\t\t|| Quantidade || Medida");
+			printf("\n");
+			printf("\n");
+			printf("  %s \t",est->item);
+			printf("\t%s",est->quantidade);
+			printf("\t   %s\n",est->medida);
+			est = est->prox;
+		}
 	}
 	printf("\n");
 	printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 	getchar();
+	}
+	else{
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\t\tArquivo de Estoque nao Encontrado!");
+		printf("\n");
+		printf("\n");
+    	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+	}
 }
 
 //Função para Remover Estoque
@@ -313,6 +454,8 @@ void removerEstoque(void) {
 	Estoque* est;
 	est = (Estoque*)malloc(sizeof(Estoque));
 	char item[15];
+	int a = abrirArquivoest();
+	if(a == 1){
 	printf("\n");
 	printf("***************************************************************************\n");
 	printf("**                                                                       **\n");
@@ -320,7 +463,7 @@ void removerEstoque(void) {
 	printf("**           -------------- Remover Estoque ----------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("             Item:  ");
+	printf("             Item(Sem acentos):  ");
 	scanf("%[^\n]", item);
 	getchar();
 	est = procurarEstoque(item);
@@ -341,7 +484,19 @@ void removerEstoque(void) {
 		printf("\n");
 		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
 		getchar();
+	  }
 	}
+	  else{
+		system("cls");
+		printf("\n");
+		printf("\n");
+		printf("\t\tArquivo de Estoque nao Encontrado!");
+		printf("\n");
+		printf("\n");
+    	printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+
+	  }
 	
 	
 }

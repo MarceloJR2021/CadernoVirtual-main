@@ -112,7 +112,7 @@ Ingredientes* telaPreencherIngredientes(void){
 	ing->status = 'a';
 	printf("***************************************************************************\n");
 	printf("           Ingredientes: \n");
-	printf("           Entre com o nome do Ingrediente: ");
+	printf("           Entre com o nome do Ingrediente(Sem acentos): ");
 		do{
 			strcpy(ing->ingredientes,""),
 			scanf("%[^\n]",ing->ingredientes);
@@ -127,7 +127,7 @@ Ingredientes* telaPreencherIngredientes(void){
 				system("cls");
 				printf("\n");
 				printf("\t\tIngredientes: \n");
-				printf("\tNenhuma Entrada!\n\tEntre com o nome do Ingrediente:");
+				printf("\tNenhuma Entrada!\n\tEntre com o nome do Ingrediente(Sem acentos):");
 			}
 		}while(m == 0);
 		printf("	   Entre com a medida:(kg,litro,g,unidade): ");
@@ -169,7 +169,7 @@ Preparo* telaPreencherPreparo(void){
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("\n");
-	printf("           Entre com o Preparo da Receita: ");
+	printf("           Entre com o Preparo da Receita(Sem acentos): ");
 	do{
 		strcpy(prep->preparo,"");
 		scanf("%[^\n]", prep->preparo);
@@ -179,7 +179,7 @@ Preparo* telaPreencherPreparo(void){
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("\tNenhuma Entrada!\n\tEntre Novamente com o Preparo:\n\t");
+			printf("\tNenhuma Entrada!\n\tEntre Novamente com o Preparo(Sem acentos):\n\t");
 		}
 	}while(m == 0);
 	system("cls");
@@ -231,7 +231,7 @@ Receita* telaPreencherReceita(void){
 	}while(m == 0 || acharExistente(rec->codReceita));
 	system("cls");
 	printf("***************************************************************************\n");
-	printf("           Nome da Receita: ");
+	printf("           Nome da Receita(Sem acentos): ");
 	do{
 		strcpy(rec->nome,"");
 		scanf("%[^\n]", rec->nome);
@@ -244,20 +244,20 @@ Receita* telaPreencherReceita(void){
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("	Entre com algum Nome:");
+			printf("	Entre com algum Nome(Sem acentos):");
 		}
 		if(acharExistente(rec->nome)){
 			system("cls");
 			printf("\n");
 			printf("\t\tNome: %s\n",rec->nome);
 			printf("\n");
-			printf("\t\tNome ja Cadastrado!\n\t\tNome da Receita:");
+			printf("\t\tNome ja Cadastrado!\n\t\tNome da Receita(Sem acentos):");
 		}
 	}while(m == 0 || acharExistente(rec->nome));
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
-	printf("           Origem da Receita(Pais ou Regiao): ");
+	printf("           Origem da Receita(Pais ou Regiao)(Sem acentos): ");
 	do{
 		strcpy(rec->origem,"");
 		scanf("%[^\n]",rec->origem);
@@ -277,7 +277,7 @@ Receita* telaPreencherReceita(void){
 	system("cls");
 	printf("\n");
 	printf("***************************************************************************\n");
-	printf("           Local de Obtencao da Receita(Site,Livro,Revista): ");
+	printf("           Local de Obtencao da Receita(Site,Livro,Revista)(Sem acentos): ");
 	do{
 		strcpy(rec->obtencao,"");
 		scanf("%[^\n]",rec->obtencao);
@@ -718,7 +718,8 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("           Digite o Codigo da Receitas(A1,B2,C3..): ");
+		printf("\t\tDiferencia-se Maiuscula de Minuscula.");
+		printf("\t\tDigite o Codigo da Receitas(A1,B2,C3..): ");
 		do{
 			strcpy(cod,"");
 			scanf("%[^\n]", cod);
@@ -742,7 +743,8 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("    Digite o Nome da Receita: ");
+		printf("\t\tNao Diferencia Maiuscula de Minuscula e Sem acentos.");
+		printf("\t\tDigite o Nome da Receita: ");
 		do{
 		strcpy(cod,"");
 		scanf("%[^\n]", cod);
@@ -755,7 +757,7 @@ void encontrarReceitas(void) {
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("	Entre com algum Nome:");
+			printf("	Entre com algum Nome(Sem acentos):");
 		}
 		}while(m == 0);
 		rec = buscarReceita(cod);
@@ -769,7 +771,8 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("           Origem da Receita(Pais ou Regiao): ");
+		printf("\t\tNao diferencia Maiuscula de Minuscula e Sem acentos.");
+		printf("\t\tOrigem da Receita(Pais ou Regiao): ");
 		do{
 			strcpy(cod,"");
 			scanf("%[^\n]",cod);
@@ -782,7 +785,7 @@ void encontrarReceitas(void) {
 			if(m == 0){
 				system("cls");
 				printf("\n");
-				printf("	Entre com alguma Origem:");
+				printf("	Entre com alguma Origem(Sem acentos):");
 			}	
 		}while(m == 0);
 		mostrou = buscaCompleta(cod);	
@@ -835,7 +838,8 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("           Digite o Ingrediente na Receita: ");
+		printf("\t\tNao diferencia Maiuscula de Minuscula e Sem acentos.");
+		printf("\t\tDigite o Ingrediente na Receita: ");
 		do{
 			strcpy(cod,""),
 			scanf("%[^\n]",cod);
@@ -850,7 +854,7 @@ void encontrarReceitas(void) {
 				system("cls");
 				printf("\n");
 				printf("\t\tIngredientes: \n");
-				printf("\tNenhuma Entrada!\n\tEntre com o nome do Ingrediente:");
+				printf("\tNenhuma Entrada!\n\tEntre com o nome do Ingrediente(Sem acentos):");
 			}
 		}while(m == 0);
 		mostrou = buscaporIngredientes(cod);
@@ -941,7 +945,7 @@ void atualizarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("	Nome:%s\n\n",rec->nome);
-		printf("	Entre com o novo nome:");
+		printf("	Entre com o novo nome(Sem acentos):");
 		do{
 		strcpy(rec->nome,"");
 		scanf("%[^\n]", rec->nome);
@@ -954,7 +958,7 @@ void atualizarReceitas(void) {
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("	Entre com algum Nome:");
+			printf("	Entre com algum Nome(Sem acentos):");
 		}
 		if(acharExistente(rec->nome)){
 			system("cls");
@@ -971,7 +975,7 @@ void atualizarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("	Origem:%s\n\n",rec->origem);
-		printf("	Entre com a Origem:");
+		printf("	Entre com a Origem(Sem acentos):");
 		do{
 		strcpy(rec->origem,"");
 		scanf("%[^\n]",rec->origem);
@@ -984,7 +988,7 @@ void atualizarReceitas(void) {
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("	Entre com alguma Origem:");
+			printf("	Entre com alguma Origem(Sem acentos):");
 		}
 		
 		}while(m == 0);
@@ -995,7 +999,7 @@ void atualizarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("	Obtencao:%s\n",rec->obtencao);
-		printf("	Entre com a Obtencao:");
+		printf("	Entre com a Obtencao(Sem acentos):");
 		do{
 		strcpy(rec->obtencao,"");
 		scanf("%[^\n]",rec->obtencao);
@@ -1005,7 +1009,7 @@ void atualizarReceitas(void) {
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("	Entre com algum Local de Obtencao da Receita:");
+			printf("	Entre com algum Local de Obtencao da Receita(Sem acentos):");
 		}
 		}while(m == 0);
 		system("cls");
@@ -1049,7 +1053,7 @@ void atualizarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("	Preparo:\n	%s\n\n",prep->preparo);
-		printf("	Entre com o Preparo:");
+		printf("	Entre com o Preparo(Sem acentos):");
 		do{
 		strcpy(prep->preparo,"");
 		scanf("%[^\n]", prep->preparo);
@@ -1059,7 +1063,7 @@ void atualizarReceitas(void) {
 		if(m == 0){
 			system("cls");
 			printf("\n");
-			printf("\tNenhuma Entrada!\n\tEntre Novamente com o Preparo:\n\t");
+			printf("\tNenhuma Entrada!\n\tEntre Novamente com o Preparo(Sem acentos):\n\t");
 		}
 		}while(m == 0);
 		system("cls");
@@ -1192,7 +1196,7 @@ void deletarReceitas(void) {
 	printf("**           -------------- Deletar Receita ----------------             **\n");
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
-	printf("**           Nome da Receita para Deletar:                               **\n");
+	printf("**           Codigo da Receita para Deletar:                             **\n");
 	printf("             ");
 	scanf("%[^\n]", cod);
 	getchar();

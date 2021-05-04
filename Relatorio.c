@@ -147,22 +147,34 @@ void exibirestOrdenada(Estoque* est){
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	printf("   Nome\t\t\t|| Quantidade ||\tMedida");
+	printf("   Nome\t\t\t\t|| Quantidade ||\tMedida");
 	printf("\n");
 	printf("\n");
 	while(est != NULL){
 		m = strlen(est->item);
 		if(m < 5){
-			printf("  %s \t",est->item);
-			printf("\t\t\t %s",est->quantidade);
-			printf("\t\t %s\n",est->medida);
+			printf("  %s\t\t",est->item);
+			printf("\t\t\t%s",est->quantidade);
+			printf("\t\t%s\n",est->medida);
 			est = est->prox;
 
 		}
-		else{
+		if(m >= 5 && m < 13){
+			printf("  %s \t\t\t",est->item);
+			printf("\t%s",est->quantidade);
+			printf("\t\t%s\n",est->medida);
+			est = est->prox;
+		}
+		if(m >= 13 && m < 21){
+			printf("  %s \t\t",est->item);
+			printf("\t%s\t",est->quantidade);
+			printf("\t%s\n",est->medida);
+			est = est->prox;
+		}
+		if(m >= 21 ){
 			printf("  %s \t",est->item);
-			printf("\t\t %s",est->quantidade);
-			printf("\t\t %s\n",est->medida);
+			printf("\t%s",est->quantidade);
+			printf("\t\t%s\n",est->medida);
 			est = est->prox;
 		}
 		

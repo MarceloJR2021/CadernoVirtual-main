@@ -4,6 +4,8 @@ char menuEstoque(void);
 void adicionarEstoque(void);
 void removerEstoque(void);
 void exibirEstoque(void);
+int abrirArquivoest(void);
+
 
 struct estoque {
 	char status;
@@ -24,3 +26,4 @@ void regravarEstoque(Estoque*);
 Estoque* aberturaFinancas(Estoque*);
 Financas* deletarFinancasest(Estoque*);
 void gravarFinancaest(Financas*);
+Estoque* acharestExistente(char*);

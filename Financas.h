@@ -2,6 +2,7 @@
 char menuFinancas(void);
 void adicionarFinancas(void);
 void removerFinancas(void);
+int abrirArquivofin(void);
 
 struct financas {
 	float financa;
