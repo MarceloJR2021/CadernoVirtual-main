@@ -250,7 +250,8 @@ Estoque* telaAdicionarEstoque(void) {
 	system("cls");
 	printf("\n");
 	printf("\n");
-	printf("\t\tEntre com a medida:(kg,litro,g,unidade): ");
+	printf("\t\tMedidas para Estoque: KG,LITRO,G,UNIDADE,MG,ML\n");
+	printf("\t\tEntre com a medida: ");
 	do{
 		scanf("%[^\n]",est->medida);
 		getchar();

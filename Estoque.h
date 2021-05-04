@@ -12,7 +12,7 @@ struct estoque {
 	char item[30];
 	char quantidade[5];
 	char preco[10];
-    char medida[9];
+    char medida[16];
 	struct estoque* prox;
 };
 

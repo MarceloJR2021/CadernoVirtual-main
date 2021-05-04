@@ -34,7 +34,7 @@ int entradaMedida(char* medida){
     for(i = 0;i < m;i++){
         medida[i] = toupper(medida[i]);
     }
-    if (strcmp(medida,"KG") == 0 || strcmp(medida,"LITRO") == 0 || strcmp(medida,"G") == 0 || strcmp(medida,"UNIDADE") == 0){
+    if (strcmp(medida,"KG") == 0 || strcmp(medida,"LITRO") == 0 || strcmp(medida,"G") == 0 || strcmp(medida,"UNIDADE") == 0 || strcmp(medida,"ML") == 0 || strcmp(medida,"MG") == 0 || strcmp(medida,"XICARA") == 0 || strcmp(medida,"COLHER DE SOPA") == 0 ){
         return 1;
     }
     return 0;

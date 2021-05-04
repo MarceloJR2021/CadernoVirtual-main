@@ -111,8 +111,8 @@ Ingredientes* telaPreencherIngredientes(void){
 	ing = (Ingredientes*)malloc(sizeof(Ingredientes));
 	ing->status = 'a';
 	printf("***************************************************************************\n");
-	printf("           Ingredientes: \n");
-	printf("           Entre com o nome do Ingrediente(Sem acentos): ");
+	printf("\t\tIngredientes: \n");
+	printf("\t\tEntre com o nome do Ingrediente(Sem acentos): ");
 		do{
 			strcpy(ing->ingredientes,""),
 			scanf("%[^\n]",ing->ingredientes);
@@ -127,25 +127,31 @@ Ingredientes* telaPreencherIngredientes(void){
 				system("cls");
 				printf("\n");
 				printf("\t\tIngredientes: \n");
-				printf("\tNenhuma Entrada!\n\tEntre com o nome do Ingrediente(Sem acentos):");
+				printf("\t\tNenhuma Entrada!\n\t\tEntre com o nome do Ingrediente(Sem acentos):");
 			}
 		}while(m == 0);
-		printf("	   Entre com a medida:(kg,litro,g,unidade): ");
+		printf("\t\tMedidas:KG,LITRO,G,UNIDADE,COLHER DE SOPA,XICARA,MG,ML\n");
+		printf("\n");
+		printf("\t\tEntre com a medida: ");
 		do{
 			scanf("%[^\n]", ing->medida);
 			getchar();
 			if(!entradaMedida(ing->medida)){
-				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+				system("cls");
+				printf("\n");
+				printf("\t\tMedidas:KG,LITRO,G,UNIDADE,COLHER DE SOPA,XICARA,MG,ML\n");
+				printf("\n");
+				printf("\t\tEntrada Invalida!\n\t\tDigite Novamente: ");
 			}
 		}while(!entradaMedida(ing->medida));
-		printf("           Entre com a Quantidade do Ingrediente(So Numero): ");
+		printf("\t\tEntre com a Quantidade do Ingrediente(So Numero): ");
 		do{
 			strcpy(ing->quantidade,"");
 			scanf("%[^\n]",ing->quantidade);
 			getchar();
 			m = strlen(ing->quantidade);
 			if(!entradaInt(ing->quantidade) || m == 0){
-				printf("	   Entrada Invalida!\n	   Digite Novamente: ");
+				printf("\t\tEntrada Invalida!\n\t\tDigite Novamente: ");
 			}
 		}while(!entradaInt(ing->quantidade) || m == 0);
 		
@@ -169,7 +175,8 @@ Preparo* telaPreencherPreparo(void){
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("\n");
-	printf("           Entre com o Preparo da Receita(Sem acentos): ");
+	printf("\t\tEntre com o Preparo da Receita(Sem acentos):");
+	printf("\t-");
 	do{
 		strcpy(prep->preparo,"");
 		scanf("%[^\n]", prep->preparo);
@@ -718,7 +725,7 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("\t\tDiferencia-se Maiuscula de Minuscula.");
+		printf("\t\tDiferencia-se Maiuscula de Minuscula.\n");
 		printf("\t\tDigite o Codigo da Receitas(A1,B2,C3..): ");
 		do{
 			strcpy(cod,"");
@@ -743,7 +750,7 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("\t\tNao Diferencia Maiuscula de Minuscula e Sem acentos.");
+		printf("\t\tNao Diferencia Maiuscula de Minuscula e Sem acentos.\n");
 		printf("\t\tDigite o Nome da Receita: ");
 		do{
 		strcpy(cod,"");
@@ -771,7 +778,7 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("\t\tNao diferencia Maiuscula de Minuscula e Sem acentos.");
+		printf("\t\tNao diferencia Maiuscula de Minuscula e Sem acentos.\n");
 		printf("\t\tOrigem da Receita(Pais ou Regiao): ");
 		do{
 			strcpy(cod,"");
@@ -838,7 +845,7 @@ void encontrarReceitas(void) {
 		printf("\n");
 		printf("\n");
 		printf("\n");
-		printf("\t\tNao diferencia Maiuscula de Minuscula e Sem acentos.");
+		printf("\t\tNao diferencia Maiuscula de Minuscula e Sem acentos.\n");
 		printf("\t\tDigite o Ingrediente na Receita: ");
 		do{
 			strcpy(cod,""),

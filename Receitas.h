@@ -14,7 +14,7 @@ int abrirArquivo(void);
 struct ingredientes {
 	char codReceita[4];
 	char ingredientes[30];
-	char medida[9];
+	char medida[16];
 	char quantidade[4];
 	char status;
 };
