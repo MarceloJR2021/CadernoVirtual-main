@@ -1212,6 +1212,11 @@ void deletarReceitas(void) {
 	ing = buscaIngredientes(cod);
 	if (rec == NULL) {
     	printf("\n\nReceita nao encontrada!\n\n");
+		printf("\n");
+		printf("\n");
+		printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+		getchar();
+		
   	} else {
 		  ing->status = 'd';
 		  rec->status = 'd';
