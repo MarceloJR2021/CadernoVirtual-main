@@ -175,7 +175,7 @@ Preparo* telaPreencherPreparo(void){
 	printf("**           -----------------------------------------------             **\n");
 	printf("**                                                                       **\n");
 	printf("\n");
-	printf("\t\tEntre com o Preparo da Receita(Sem acentos):");
+	printf("\t\tEntre com o Preparo da Receita(Sem acentos):\n");
 	printf("\t-");
 	do{
 		strcpy(prep->preparo,"");
@@ -378,7 +378,7 @@ void regravarReceita(Receita* rec) {
 		printf("Arquivo nao encontrado!");
 	}
 	while(fread(nrec, sizeof(Receita), 1, cd)) {
-		if (strcmp(nrec->codReceita, rec->codReceita) == 0) {
+		if (strcmp(nrec->codReceita, rec->codReceita) == 0 && nrec->status == 'a') {
 			fseek(cd, -1*sizeof(Receita), SEEK_CUR);
         	fwrite(rec, sizeof(Receita), 1, cd);
 			break;
@@ -411,7 +411,7 @@ void regravarPreparo(Preparo* prep) {
 		printf("Arquivo nao encontrado!");
 	}
 	while(fread(nprep, sizeof(Preparo), 1, cd)) {
-		if (strcmp(nprep->codReceita, prep->codReceita) == 0) {
+		if (strcmp(nprep->codReceita, prep->codReceita) == 0 && nprep->status == 'a') {
 			fseek(cd, -1*sizeof(Preparo), SEEK_CUR);
         	fwrite(prep, sizeof(Preparo), 1, cd);
 			break;
@@ -431,7 +431,7 @@ void regravarIngredientes(Ingredientes* ing) {
 		printf("Arquivo nao encontrado!");
 	}
 	while(fread(ning, sizeof(Ingredientes), 1, cd)) {
-			if (strcmp(ning->codReceita, ing->codReceita) == 0) {
+			if (strcmp(ning->codReceita, ing->codReceita) == 0 && ning->status == 'a') {
 				fseek(cd, -1*sizeof(Ingredientes), SEEK_CUR);
 				fwrite(ing, sizeof(Ingredientes), 1, cd);
 				break;

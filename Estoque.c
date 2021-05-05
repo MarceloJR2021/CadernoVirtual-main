@@ -94,14 +94,18 @@ void adicionarEstoque(void){
 			fin = deletarFinancasest(est2);
 			gravarFinancaest(fin);
 		}
+		else{
+			est2 = aberturaFinancas(est);
+			gravarEstoque(est2);
+			fin = deletarFinancasest(est2);
+			gravarFinancaest(fin);
+		}	
 	}
 	else{
-	est2 = aberturaFinancas(est);
-	if(est2 != NULL){
+		est2 = aberturaFinancas(est);
 		gravarEstoque(est2);
 		fin = deletarFinancasest(est2);
 		gravarFinancaest(fin);
-	}
 	}
 	free(est);
 	free(est2);
@@ -312,7 +316,7 @@ void regravarEstoque(Estoque* est) {
 	}
 	// while(!feof(fp)) {
 	while(fread(nest, sizeof(Estoque), 1, cd)) {
-		if (strcmp(nest->item, est->item) == 0) {
+		if (strcmp(nest->item, est->item) == 0 && nest->status == 'a') {
 			fseek(cd, -1*sizeof(Estoque), SEEK_CUR);
         	fwrite(est, sizeof(Estoque), 1, cd);
 			break;
